@@ -2,6 +2,9 @@ checkout:
   post:
     - git submodule sync
     - git submodule update --init
+dependencies:
+  override:
+    - pip install ./submodules/master/requirements_py2.txt
 test:
   override:
     - python ./submodules/master/web/regression/runtests.py
