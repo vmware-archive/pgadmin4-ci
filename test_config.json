@@ -1,0 +1,32 @@
+{
+  "pgAdmin4_login_credentials": {
+    "new_password": "NEWPASSWORD",
+    "login_password": "PASSWORD",
+    "login_username": "USER@EXAMPLE.COM"
+  },
+  "pgAdmin4_test_user_credentials": {
+    "new_password": "NEWPASSWORD",
+    "login_password": "PASSWORD",
+    "login_username": "USER@EXAMPLE.COM"
+  },
+  "server_group": 1,
+  "server_credentials": [
+    {
+      "name": "PostgreSQL",
+      "comment": "Circle default postgres",
+      "host": "localhost",
+      "db_username": "ubuntu",
+      "db_password": "",
+      "db_port": 5432,
+      "maintenance_db": "postgres",
+      "sslmode": "prefer",
+      "tablespace_path": "",
+      "enabled": true
+    }
+  ],
+  "server_update_data": [
+    {
+      "comment": "This is test update comment"
+    }
+  ]
+}

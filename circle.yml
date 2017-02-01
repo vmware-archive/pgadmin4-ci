@@ -2,6 +2,9 @@ checkout:
   post:
     - git submodule sync
     - git submodule update --init
+    - cp ./config_local.py ./submodules/master/web/config_local.py
+    - cp ./test_config.json ./submodules/master/web/regression/test_config.json
+
 dependencies:
   override:
     - pip install -r ./submodules/master/requirements_py2.txt
