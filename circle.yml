@@ -1,5 +1,11 @@
+machine:
+  services:
+    - docker
+
 checkout:
   post:
+#    - docker pull yolo/gpdbdev
+    - docker run -d yolo/gpdbdev
     - git submodule sync
     - git submodule update --init
     - cp ./config_local.py ./submodules/master/web/config_local.py
@@ -8,6 +14,7 @@ checkout:
 dependencies:
   override:
     - pip install -r ./submodules/master/requirements_py2.txt
+
 test:
   override:
     - python ./submodules/master/web/regression/runtests.py
