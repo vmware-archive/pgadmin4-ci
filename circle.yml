@@ -4,8 +4,6 @@ machine:
 
 checkout:
   post:
-#    - docker pull yolo/gpdbdev
-    - docker run -d yolo/gpdbdev:centos6_rc
     - git submodule sync
     - git submodule update --init
 
