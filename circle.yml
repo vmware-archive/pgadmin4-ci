@@ -8,8 +8,12 @@ checkout:
     - docker run -d yolo/gpdbdev:centos6_rc
     - git submodule sync
     - git submodule update --init
+
     - cp ./config_local.py ./submodules/master/web/config_local.py
     - cp ./test_config.json ./submodules/master/web/regression/test_config.json
+
+    - cp ./config_local.py ./submodules/plummaster/web/config_local.py
+    - cp ./test_config.json ./submodules/plummaster/web/regression/test_config.json
 
 dependencies:
   override:
@@ -18,3 +22,4 @@ dependencies:
 test:
   override:
     - python ./submodules/master/web/regression/runtests.py
+    - python ./submodules/plummaster/web/regression/runtests.py
