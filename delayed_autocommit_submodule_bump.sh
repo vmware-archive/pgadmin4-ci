@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# This should be invoked by the pgadmin4/.git/hooks/pre-push hook
+
+set -euxo pipefail
+echo 'Resting before commit to pgadmin4-CI'
+
+sleep 10
+
+pushd submodules/plummaster
+  git fetch
+  git reset --hard origin/plummaster
+  CHILD_SHA=$(git rev-parse HEAD)
+  CHILD_MESSAGE=$(git log --format=%B -n 1 HEAD)
+popd
+
+git add submodules/plummaster
+git commit -m "Auto-update plummaster to \"$CHILD_MESSAGE\"($CHILD_SHA)"
+git push
+
