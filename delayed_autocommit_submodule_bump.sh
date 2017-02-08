@@ -13,7 +13,17 @@ pushd submodules/plummaster
   CHILD_MESSAGE=$(git log --format=%B -n 1 HEAD)
 popd
 
+pushd submodules/master
+  git fetch
+  git reset --hard origin/master
+  MASTER_CHILD_SHA=$(git rev-parse HEAD)
+  MASTER_CHILD_MESSAGE=$(git log --format=%B -n 1 HEAD)
+popd
+
 git add submodules/plummaster
-git commit -m "Auto-update plummaster to \"$CHILD_MESSAGE\"($CHILD_SHA)"
+git commit -m "Auto-update plummaster to \"$CHILD_MESSAGE\"($CHILD_SHA)
+
+- also bump master to \"$MASTER_CHILD_MESSAGE\"($MASTER_CHILD_SHA)"
+
 git push
 
