@@ -24,3 +24,6 @@ test:
 #        parallel: true
 #    - python ./submodules/master/web/regression/runtests.py
 #    - python ./submodules/plummaster/web/regression/runtests.py
+
+  post:
+    - mv ./**/screenshots/*.png $CIRCLE_ARTIFACTS/
