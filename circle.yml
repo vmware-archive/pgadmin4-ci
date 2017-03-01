@@ -21,5 +21,4 @@ dependencies:
 test:
   override:
     - python ./submodules/master/web/regression/runtests.py
-        parallel: true
     - python ./submodules/plummaster/web/regression/runtests.py
