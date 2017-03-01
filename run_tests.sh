@@ -4,13 +4,13 @@ case $CIRCLE_NODE_INDEX in
         pyenv global 2.7.12
     ;;
     1)
-        pyenv global 3.1.5
+        pyenv global 3.3.6
     ;;
     2)
-        pyenv global 3.2.6
+        pyenv global 3.5.2
     ;;
     3)
-        pyenv global 3.5.2
+        pyenv global 3.6.0
     ;;
 esac
 

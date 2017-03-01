@@ -27,4 +27,4 @@ test:
 #    - python ./submodules/plummaster/web/regression/runtests.py
 
   post:
-    - mv ./**/screenshots/*.png $CIRCLE_ARTIFACTS/
+    - find submodules/ -name screenshots -exec cp -r '{}' $CIRCLE_ARTIFACTS/ ';'
