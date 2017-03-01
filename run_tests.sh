@@ -14,6 +14,8 @@ case $CIRCLE_NODE_INDEX in
     ;;
 esac
 
+python --version
+
 pip install -r ./submodules/plummaster/requirements.txt
 
 python ./submodules/master/web/regression/runtests.py
