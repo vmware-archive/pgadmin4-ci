@@ -20,5 +20,4 @@ dependencies:
 
 test:
   override:
-    - python ./submodules/master/web/regression/runtests.py && python ./submodules/plummaster/web/regression/runtests.py
-      parallel: true
+    - run_tests.sh
