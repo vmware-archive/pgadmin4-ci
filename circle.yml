@@ -27,4 +27,5 @@ test:
 #    - python ./submodules/plummaster/web/regression/runtests.py
 
   post:
-    - find submodules/ -name screenshots -exec cp -r '{}' $CIRCLE_ARTIFACTS/ ';'
+    - find submodules/ -name screenshots -exec cp -r '{}' $CIRCLE_ARTIFACTS/ ';':
+        parallel: true
