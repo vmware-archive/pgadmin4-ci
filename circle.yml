@@ -19,5 +19,8 @@ dependencies:
 
 test:
   override:
+    - ./run_tests.sh
+#    - case $CIRCLE_NODE_INDEX in 0) pyenv global 2.7.12 && python ./submodules/master/web/regression/runtests.py ;; 1) pyenv global 3.1.5 ;; 2) pyenv global 3.2.6 ;; 3) pyenv global 3.5.2 ;; esac:
+#        parallel: true
     - python ./submodules/master/web/regression/runtests.py
     - python ./submodules/plummaster/web/regression/runtests.py
