@@ -17,6 +17,7 @@ esac
 python --version
 
 pip install -r ./submodules/plummaster/requirements.txt
+pip install -r ./submodules/plummaster/web/regression/requirements.txt
 
 python ./submodules/master/web/regression/runtests.py
 python ./submodules/plummaster/web/regression/runtests.py

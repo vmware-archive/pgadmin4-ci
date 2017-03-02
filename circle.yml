@@ -13,19 +13,10 @@ checkout:
     - cp ./config_local.py ./submodules/plummaster/web/config_local.py
     - cp ./test_config.json ./submodules/plummaster/web/regression/test_config.json
 
-#dependencies:
-#  override:
-#    - pip install -r ./submodules/plummaster/requirements.txt
-
 test:
   override:
     - ./run_tests.sh:
         parallel: true
-#    - case $CIRCLE_NODE_INDEX in 0) pyenv global 2.7.12 && python ./submodules/master/web/regression/runtests.py ;; 1) pyenv global 3.1.5 ;; 2) pyenv global 3.2.6 ;; 3) pyenv global 3.5.2 ;; esac:
-#        parallel: true
-#    - python ./submodules/master/web/regression/runtests.py
-#    - python ./submodules/plummaster/web/regression/runtests.py
-
   post:
     - find submodules/ -name screenshots -exec cp -r '{}' $CIRCLE_ARTIFACTS/ ';':
         parallel: true
