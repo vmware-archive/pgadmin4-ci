@@ -15,7 +15,9 @@ checkout:
 
 test:
   override:
-    - ./run_tests.sh:
+    - ./run_master_tests.sh:
+        parallel: true
+    - ./run_plummaster_tests.sh:
         parallel: true
   post:
     - find submodules/ -name screenshots -exec cp -r '{}' $CIRCLE_ARTIFACTS/ ';':
