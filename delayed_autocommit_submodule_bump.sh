@@ -6,6 +6,8 @@ echo 'Resting before commit to pgadmin4-CI'
 
 sleep 10
 
+git submodule update --init
+
 pushd submodules/plummaster
   git fetch
   git reset --hard origin/plummaster
