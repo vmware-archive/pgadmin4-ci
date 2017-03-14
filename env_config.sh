@@ -15,6 +15,8 @@ case $CIRCLE_NODE_INDEX in
     ;;
 esac
 
+sudo apt-get install xsel
+
 python --version
 
 pip install -r ./submodules/plummaster/requirements.txt
