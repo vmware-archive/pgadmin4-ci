@@ -19,6 +19,3 @@ python --version
 
 pip install -r ./submodules/plummaster/requirements.txt
 pip install -r ./submodules/plummaster/web/regression/requirements.txt
-
-sudo apt-get install xsel
-sudo apt-get install google-chrome-stable
