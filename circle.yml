@@ -13,8 +13,10 @@ checkout:
     - cp ./config_local.py ./submodules/plummaster/web/config_local.py
     - cp ./test_config.json ./submodules/plummaster/web/regression/test_config.json
 
+dependencies:
+  pre:
     - ./install_linux_packages.sh
-
+    
 test:
   override:
     - ./env_config.sh:
