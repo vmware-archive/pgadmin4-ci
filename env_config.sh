@@ -15,9 +15,11 @@ case $CIRCLE_NODE_INDEX in
     ;;
 esac
 
-sudo apt-get install xsel
-
 python --version
 
 pip install -r ./submodules/plummaster/requirements.txt
 pip install -r ./submodules/plummaster/web/regression/requirements.txt
+
+sudo apt-get install xsel
+
+sudo apt-get install yarn
