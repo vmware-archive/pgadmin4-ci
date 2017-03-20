@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -e
 
 pushd ./submodules/plummaster/web/
     yarn
