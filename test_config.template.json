@@ -11,7 +11,18 @@
   },
   "server_group": 1,
   "server_credentials": [
-    SERVER_CONFIGURATION
+    {
+      "name": "Greenplum5",
+      "comment": "Greenplum Pivotal Server",
+      "host": "GREENPLUM_DB_HOST",
+      "db_username": "GREENPLUM_DB_USERNAME",
+      "db_password": "GREENPLUM_DB_PASSWORD",
+      "db_port": GREENPLUM_DB_PORT,
+      "maintenance_db": "postgres",
+      "sslmode": "prefer",
+      "tablespace_path": "",
+      "enabled": true
+    }
   ],
   "server_update_data": [
     {
