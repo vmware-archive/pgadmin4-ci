@@ -25,6 +25,7 @@ test:
         parallel: true
     - ./run_master_tests.sh:
         parallel: true
+    - ./run_plummaster_on_greenplum_tests.sh
   post:
     - find submodules/ -name screenshots -exec cp -r '{}' $CIRCLE_ARTIFACTS/ ';':
         parallel: true
