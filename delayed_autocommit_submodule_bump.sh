@@ -26,7 +26,7 @@ popd
 
 git add submodules/plummaster
 git add submodules/master
-git commit -m "Auto-update plummaster to \"$CHILD_MESSAGE\"($CHILD_SHA)
+git commit -m "Run tests against branch '$branch_name' to \"$CHILD_MESSAGE\"($CHILD_SHA)
 
 - also bump master to \"$MASTER_CHILD_MESSAGE\"($MASTER_CHILD_SHA)"
 
