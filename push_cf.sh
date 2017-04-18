@@ -14,7 +14,7 @@ cp config_local_cf.py submodules/plummaster/web/config_local.py
 cp .cfignore submodules/plummaster/web/
 
 pushd submodules/plummaster
-    cf push $branch_name -f ../../manifest.yml
+    cf push plumadmin-$branch_name -f ../../manifest.yml
 popd
 
 exit 0
