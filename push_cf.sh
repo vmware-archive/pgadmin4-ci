@@ -11,9 +11,10 @@ fi
 cf login -a api.run.pivotal.io -u $CF_USER_NAME -p $CF_USER_PASSWORD -s plumadmin
 
 cp config_local_cf.py submodules/plummaster/web/config_local.py
+cp .cfignore submodules/plummaster/web/
 
 pushd submodules/plummaster
-    cf push $branch_name -f manifest.yml
+    cf push $branch_name -f ../../manifest.yml
 popd
 
 exit 0

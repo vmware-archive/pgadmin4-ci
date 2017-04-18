@@ -1,0 +1,9 @@
+---
+applications:
+- name: pgAdmin4
+  memory: 1G
+  buildpack: python_buildpack
+  command: python pgAdmin4.py
+  timeout: 60
+  path: web/
+  health-check-type: none
