@@ -31,3 +31,9 @@ test:
   post:
     - find submodules/ -name screenshots -exec cp -r '{}' $CIRCLE_ARTIFACTS/ ';':
         parallel: true
+
+deployment:
+  staging:
+    branch: master
+    commands:
+      - ./push_cf.sh
