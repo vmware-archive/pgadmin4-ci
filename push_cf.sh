@@ -15,6 +15,11 @@ cp .cfignore submodules/plummaster/web/
 cp manifest.yml submodules/plummaster/
 cp submodules/plummaster/requirements.txt submodules/plummaster/web/
 
+pushd submodules/plummaster/web
+  yarn install
+  grunt bundle
+popd
+
 pushd submodules/plummaster
     cf push plumadmin-$branch_name -f manifest.yml
 popd
