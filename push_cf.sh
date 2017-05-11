@@ -17,7 +17,7 @@ cp submodules/plummaster/requirements.txt submodules/plummaster/web/
 
 pushd submodules/plummaster/web
   yarn install
-  grunt bundle
+  yarn run grunt bundle
 popd
 
 pushd submodules/plummaster
