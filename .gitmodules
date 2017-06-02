@@ -3,5 +3,5 @@
 	url = git://git.postgresql.org/git/pgadmin4.git
 [submodule "plummaster"]
 	path = submodules/plummaster
-	url = git@github.com:pivotalsoftware/pgadmin4.git
+	url = git@github.com:greenplum-db/pgadmin4.git
 	branch = plummaster
