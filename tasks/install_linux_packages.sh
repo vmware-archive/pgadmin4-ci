@@ -10,7 +10,7 @@ sh -c 'echo "deb http://dl.yarnpkg.com/debian/ stable main" >> /etc/apt/sources.
 apt-get update
 
 # copy utility for pyperclip to work in the test
-apt-get install xsel
+apt-get -y install xsel
 
 # update google chrome so it works with new chromedriver
 #curl -s https://raw.githubusercontent.com/chronogolf/circleci-google-chrome/master/use_chrome_stable_version.sh | bash
@@ -34,8 +34,8 @@ ln -s /bin/dbus-uuidgen /usr/bin/dbus-uuidgen   # /etc/init.d/dbus has the wrong
 apt-get -y install google-chrome-stable
 
 # install node
-curl -sL https://deb.nodesource.com/setup_8.x | -E bash -
-apt-get install -y nodejs
+curl -sL https://deb.nodesource.com/setup_8.x | bash -
+apt-get -y install nodejs
 
 # install yarn
-apt-get install yarn
+apt-get -y install yarn
