@@ -33,5 +33,9 @@ ln -s /bin/dbus-uuidgen /usr/bin/dbus-uuidgen   # /etc/init.d/dbus has the wrong
 # install chrome
 apt-get -y install google-chrome-stable
 
+# install node
+curl -sL https://deb.nodesource.com/setup_8.x | -E bash -
+apt-get install -y nodejs
+
 # install yarn
 apt-get install yarn
