@@ -1,9 +1,15 @@
 #!/usr/bin/env bash
 
-# copy utility for pyperclip to work in the test
+# chrome apt repository
 wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
 sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
+
+# yarn apt repository
+curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+sh -c 'echo "deb https://dl.yarnpkg.com/debian/ stable main" >> /etc/apt/sources.list.d/yarn.list'
 apt-get update
+
+# copy utility for pyperclip to work in the test
 apt-get install xsel
 
 # update google chrome so it works with new chromedriver
@@ -26,3 +32,6 @@ ln -s /bin/dbus-uuidgen /usr/bin/dbus-uuidgen   # /etc/init.d/dbus has the wrong
 
 # install chrome
 apt-get -y install google-chrome-stable
+
+# install yarn
+apt-get install yarn
