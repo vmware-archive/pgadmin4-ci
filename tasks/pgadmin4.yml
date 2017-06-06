@@ -3,7 +3,8 @@ resources:
     type: git
     source:
       uri: https://github.com/greenplum-db/pgadmin4.git
-      branch: query-results-patch
+#      branch: query-results-patch
+      branch: test-ci-error
   - name: pipeline-ci
     type: git
     source:
