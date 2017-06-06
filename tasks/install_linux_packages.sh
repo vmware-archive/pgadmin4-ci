@@ -6,7 +6,7 @@ sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main
 
 # yarn apt repository
 curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
-sh -c 'echo "deb https://dl.yarnpkg.com/debian/ stable main" >> /etc/apt/sources.list.d/yarn.list'
+sh -c 'echo "deb http://dl.yarnpkg.com/debian/ stable main" >> /etc/apt/sources.list.d/yarn.list'
 apt-get update
 
 # copy utility for pyperclip to work in the test
