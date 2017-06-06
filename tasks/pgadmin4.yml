@@ -1,0 +1,28 @@
+resources:
+  - name: pivotal-source
+    type: git
+    source:
+      uri: https://github.com/greenplum-db/pgadmin4.git
+      branch: query-results-patch
+  - name: pipeline-ci
+    type: git
+    source:
+      uri: https://github.com/greenplum-db/pgadmin4-ci.git
+      branch: concourse
+
+jobs:
+- name: javascript-tests
+  plan:
+  - get: pivotal-source
+  - get: pipeline-ci
+  - task: karma-tests
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source: {repository: python}
+      inputs:
+        - name: pivotal-source
+        - name: pipeline-ci
+      run:
+        path: pipeline-ci/tasks/run_pip.sh
