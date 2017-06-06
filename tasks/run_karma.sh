@@ -1,6 +1,6 @@
 #!/bin/bash
-pip install -r pivotal-source/requirements.txt
-pip install -r pivotal-source/web/regression/requirements.txt
+#pip install -r pivotal-source/requirements.txt
+#pip install -r pivotal-source/web/regression/requirements.txt
 
 #./pipeline-ci/tasks/install_linux_packages.sh
 

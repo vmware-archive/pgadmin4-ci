@@ -21,27 +21,26 @@ jobs:
       platform: linux
       image_resource:
         type: docker-image
-        source: {repository: fotomut/pgadmin4:python-3.6}
+        source: {repository: fotomut/pgadmin4, tag: 'python-3.6'}
       inputs:
         - name: pivotal-source
         - name: pipeline-ci
       run:
-        path: pipeline-ci/tasks/run_pip.sh
+        path: pipeline-ci/tasks/run_karma.sh
 
 - name: Python-3.6-Postgres
   plan:
   - get: pivotal-source
-  - get: pipeline-ci
-  - get: bammmm
     passed: [javascript-tests]
-  - task: karma-tests
+  - get: pipeline-ci
+  - task: python-3.6-tests
     config:
       platform: linux
       image_resource:
         type: docker-image
-        source: {repository: python}
+        source: {repository: fotomut/pgadmin4, tag: 'python-3.6'}
       inputs:
         - name: pivotal-source
         - name: pipeline-ci
       run:
-        path: pipeline-ci/tasks/run_pip.sh
+        path: pipeline-ci/tasks/run_python_tests.sh
