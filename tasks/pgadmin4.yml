@@ -14,8 +14,11 @@ resources:
 jobs:
 - name: javascript-tests
   plan:
-  - get: pivotal-source
-  - get: pipeline-ci
+  - aggregate:
+    - get: pivotal-source
+      trigger: true
+    - get: pipeline-ci
+      trigger: true
   - task: karma-tests
     config:
       platform: linux
@@ -30,9 +33,11 @@ jobs:
 
 - name: Python-3.6-Postgres
   plan:
-  - get: pivotal-source
-    passed: [javascript-tests]
-  - get: pipeline-ci
+  - aggregate:
+    - get: pivotal-source
+      trigger: true
+      passed: [javascript-tests]
+    - get: pipeline-ci
   - task: python-3.6-tests
     config:
       platform: linux
