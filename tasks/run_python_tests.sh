@@ -26,7 +26,7 @@ CHROMEDRIVER_SHA256="8f5b0ab727c326a2f7887f08e4f577cb4452a9e5783d1938728946a8557
 
 curl -SLO "https://chromedriver.storage.googleapis.com/$CHROMEDRIVER_VERSION/chromedriver_linux64.zip" \
   && echo "$CHROMEDRIVER_SHA256  chromedriver_linux64.zip" | sha256sum -c - \
-  && unzip "chromedriver_linux64.zip" -d /usr/local/bin \
+  && unzip -o "chromedriver_linux64.zip" -d /usr/local/bin \
   && rm "chromedriver_linux64.zip"
 
 # Install postgres
