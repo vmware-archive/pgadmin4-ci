@@ -21,13 +21,13 @@ ln -s /usr/bin/xvfb-chromium /usr/bin/chromium-browser
 apt-get -y install curl
 apt-get -y install unzip
 #apt-get -y install libgconf-2-4
-CHROMEDRIVER_VERSION="2.28"
-CHROMEDRIVER_SHA256="8f5b0ab727c326a2f7887f08e4f577cb4452a9e5783d1938728946a8557a37bc"
-
-curl -SLO "https://chromedriver.storage.googleapis.com/$CHROMEDRIVER_VERSION/chromedriver_linux64.zip" \
-  && echo "$CHROMEDRIVER_SHA256  chromedriver_linux64.zip" | sha256sum -c - \
-  && unzip -o "chromedriver_linux64.zip" -d /usr/local/bin \
-  && rm "chromedriver_linux64.zip"
+#CHROMEDRIVER_VERSION="2.28"
+#CHROMEDRIVER_SHA256="8f5b0ab727c326a2f7887f08e4f577cb4452a9e5783d1938728946a8557a37bc"
+#
+#curl -SLO "https://chromedriver.storage.googleapis.com/$CHROMEDRIVER_VERSION/chromedriver_linux64.zip" \
+#  && echo "$CHROMEDRIVER_SHA256  chromedriver_linux64.zip" | sha256sum -c - \
+#  && unzip -o "chromedriver_linux64.zip" -d /usr/local/bin \
+#  && rm "chromedriver_linux64.zip"
 
 # Install postgres
 sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" >> /etc/apt/sources.list.d/pgdg.list'
@@ -43,4 +43,4 @@ cp pipeline-ci/config_local.py pivotal-source/web/config_local.py
 cp pipeline-ci/test_config.json pivotal-source/web/regression/test_config.json
 
 # Run all python tests. Includes feature tests.
-python ./pivotal-source/web/regression/runtests.py
+#python ./pivotal-source/web/regression/runtests.py
