@@ -2,12 +2,15 @@
 
 apt-get update
 
+# TODO: Remove this
+apt-get -y install vim
+
 # Install project requirements
 pip install -r pivotal-source/requirements.txt
 pip install -r pivotal-source/web/regression/requirements.txt
 
 # Install chrome
-apt-get -y remove google-chrome-stable
+apt-get -y remove google-chrome-stable # TODO: Remove it from the actual Dockerfile
 apt-get -y install xvfb chromium
 cp pipeline-ci/tasks/xvfb-chromium /usr/bin/xvfb-chromium
 ln -s /usr/bin/xvfb-chromium /usr/bin/google-chrome
