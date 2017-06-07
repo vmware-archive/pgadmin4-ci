@@ -13,9 +13,9 @@
   "server_credentials": [
     {
       "name": "PostgreSQL",
-      "comment": "Circle default postgres",
+      "comment": "Concourse default postgres",
       "host": "localhost",
-      "db_username": "ubuntu",
+      "db_username": "postgres",
       "db_password": "",
       "db_port": 5432,
       "maintenance_db": "postgres",
