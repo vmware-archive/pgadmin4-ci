@@ -31,19 +31,20 @@ jobs:
       run:
         path: pipeline-ci/tasks/run_karma.sh
 
-- name: Python-2-Postgres
+- name: Python-3.6-Postgres
   plan:
   - aggregate:
     - get: pivotal-source
       trigger: true
       passed: [javascript-tests]
     - get: pipeline-ci
-  - task: python-2-tests
+  - task: python-3.6-tests
     config:
       platform: linux
       image_resource:
         type: docker-image
-        source: {repository: markadams/chromium-xvfb-py2, tag: 'latest-onbuild'}
+        source: {repository: fotomut/pgadmin4, tag: 'python-3.6'}
+#        source: {repository: markadams/chromium-xvfb-py2, tag: 'latest-onbuild'}
       inputs:
         - name: pivotal-source
         - name: pipeline-ci
