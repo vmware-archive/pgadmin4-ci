@@ -15,5 +15,13 @@ apt-get -y install postgresql postgresql-contrib
 sed -i s/md5/trust/ /etc/postgresql/9.6/main/pg_hba.conf
 /etc/init.d/postgresql restart
 
+
+# Install chrome
+apt-get -y remove google-chrome-stable
+apt-get -y install xvfb chromium
+cp ./pgadmin4-ci/tasks/xvfb-chromium /usr/bin/xvfb-chromium
+ln -s /usr/bin/xvfb-chromium /usr/bin/google-chrome
+ln -s /usr/bin/xvfb-chromium /usr/bin/chromium-browser
+
 # Run all python tests. Includes feature tests.
 python ./pivotal-source/web/regression/runtests.py
