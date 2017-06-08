@@ -39,3 +39,21 @@ apt-get -y install nodejs
 
 # install yarn
 apt-get -y install yarn
+
+
+
+
+
+## Phantomjs
+
+apt-get install build-essential chrpath libssl-dev libxft-dev -y
+apt-get install libfreetype6 libfreetype6-dev -y
+apt-get install libfontconfig1 libfontconfig1-dev wget -y
+wget https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-2.1.1-linux-x86_64.tar.bz2
+tar xvjf phantomjs-2.1.1-linux-x86_64.tar.bz2
+
+mv phantomjs-2.1.1-linux-x86_64 /usr/local/share
+ln -sf /usr/local/share/phantomjs-2.1.1-linux-x86_64/bin/phantomjs /usr/local/bin
+sudo ln -sf /usr/local/share/phantomjs-2.1.1-linux-x86_64/bin/phantomjs /usr/local/share/phantomjs
+sudo ln -sf /usr/local/share/phantomjs-2.1.1-linux-x86_64/bin/phantomjs /usr/local/bin/phantomjs
+sudo ln -sf /usr/local/share/phantomjs-2.1.1-linux-x86_64/bin/phantomjs /usr/bin/phantomjs
