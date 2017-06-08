@@ -26,7 +26,7 @@ cp pipeline-ci/config_local.py pivotal-source/web/config_local.py
 cp pipeline-ci/test_config.json pivotal-source/web/regression/test_config.json
 
 # Replace the first line of the file with the missing import
-sed -i "1s/.*/from selenium.webdriver.common.desired_capabilities import DesiredCapabilities/" ./pivotal-source/web/regression/runtests.py
+sed -i '/__future__/a from selenium.webdriver.common.desired_capabilities import DesiredCapabilities' pivotal-source/web/regression/runtests.py
 sed -i "s/Chrome()/Remote\(command_executor='http:\/\/127.0.0.1:4444\/wd\/hub', desired_capabilities=DesiredCapabilities.CHROME\)/)/" ./pivotal-source/web/regression/runtests.py
 
 
