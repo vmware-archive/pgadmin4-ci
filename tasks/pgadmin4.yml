@@ -44,8 +44,8 @@ jobs:
       platform: linux
       image_resource:
         type: docker-image
-        source: {repository: fotomut/pgadmin4, tag: 'python-3.6'}
-#        source: {repository: markadams/chromium-xvfb-py3, tag: 'latest-onbuild'}
+#        source: {repository: fotomut/pgadmin4, tag: 'python-3.6'}
+        source: {repository: markadams/chromium-xvfb-py2, tag: 'latest-onbuild'}
       inputs:
         - name: pivotal-source
         - name: pipeline-ci
