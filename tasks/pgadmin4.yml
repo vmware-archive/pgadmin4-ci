@@ -45,8 +45,9 @@ jobs:
       image_resource:
         type: docker-image
 #        source: {repository: fotomut/pgadmin4, tag: 'python-3.6'}
-        source: {repository: markadams/chromium-xvfb-py2, tag: 'latest-onbuild'}
+#        source: {repository: markadams/chromium-xvfb-py2, tag: 'latest-onbuild'}
 #        source: {repository: justinribeiro/chrome-headless}
+        source: {repository: joaopapereira/chrome-python-2.7.10, tag: 'latest'}
       inputs:
         - name: pivotal-source
         - name: pipeline-ci
