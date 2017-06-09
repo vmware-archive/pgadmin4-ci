@@ -1,6 +1,6 @@
 ---
 applications:
-- name: pgAdmin4
+- name: changemetobranchname
   memory: 1G
   buildpack: python_buildpack
   command: python pgAdmin4.py
