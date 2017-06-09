@@ -32,5 +32,9 @@ sed -i "s/Chrome()/Remote\(command_executor='http:\/\/127.0.0.1:4444\/wd\/hub', 
 
 /opt/bin/start_selenium.sh &
 
+source ~/.bash_profile
+
+pyenv activate pgadmin
+
 # Run all python tests. Includes feature tests.
 python ./pivotal-source/web/regression/runtests.py
