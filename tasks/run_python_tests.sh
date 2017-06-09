@@ -42,6 +42,6 @@ python ./pivotal-source/web/regression/runtests.py
 status=$?
 
 mkdir output
-cp -r ./pivotal-source/ output
+cp -r ./pivotal-source/web output
 
 return $status
