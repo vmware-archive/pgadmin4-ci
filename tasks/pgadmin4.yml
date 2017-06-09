@@ -71,4 +71,4 @@ jobs:
   - put: resource-deploy-web-app
     params:
       manifest: pws/manifest.yml
-      path: resource-web-app
+      path: pws

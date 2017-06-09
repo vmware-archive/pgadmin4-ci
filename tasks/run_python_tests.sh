@@ -50,7 +50,7 @@ function runTests {
     cp ./pivotal-source/requirements.txt output/web/
 
     mkdir -p output/web/.pgadmin/
-    cp ./pivotal-source/database/pgadmin4-desktop.db output/web/.pgadmin/
+    cp ./pipeline-ci/database/pgadmin4-desktop.db output/web/.pgadmin/
 
     return $status
 }
