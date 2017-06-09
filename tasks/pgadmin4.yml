@@ -39,6 +39,8 @@ jobs:
       trigger: true
       passed: [javascript-tests]
     - get: pipeline-ci
+      trigger: true
+      passed: [javascript-tests]
   - task: python-3.6-tests
     config:
       platform: linux
