@@ -37,3 +37,7 @@ deployment:
     branch: master
     commands:
       - ./push_cf.sh
+general:
+  branches:
+    ignore:
+      - concourse # list of branches to ignore
