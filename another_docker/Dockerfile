@@ -25,7 +25,7 @@ RUN apt-get -y install yarn
 # Install postgres client library
 RUN apt-get -y install libpq-dev
 
-RUN apt-get -y install python python-dev git build-essential bzip2 libreadline6 sqlite3
+RUN apt-get -y install python python-dev git build-essential bzip2 libreadline6 sqlite3 libsqlite3-dev
 
 RUN apt-get install -y wget
 RUN wget https://bootstrap.pypa.io/get-pip.py
