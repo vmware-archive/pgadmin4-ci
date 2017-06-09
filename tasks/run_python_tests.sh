@@ -5,9 +5,6 @@ apt-get update
 # TODO: Remove this
 apt-get -y install vim
 
-# Install project requirements
-pip install -r pivotal-source/requirements.txt
-pip install -r pivotal-source/web/regression/requirements.txt
 
 apt-get -y install curl
 apt-get -y install unzip
@@ -35,6 +32,10 @@ sed -i "s/Chrome()/Remote\(command_executor='http:\/\/127.0.0.1:4444\/wd\/hub', 
 source ~/.bash_profile
 
 pyenv activate pgadmin
+
+# Install project requirements
+pip install -r pivotal-source/requirements.txt
+pip install -r pivotal-source/web/regression/requirements.txt
 
 # Run all python tests. Includes feature tests.
 python ./pivotal-source/web/regression/runtests.py
