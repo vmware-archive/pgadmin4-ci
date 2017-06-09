@@ -42,6 +42,10 @@ function runTests {
     python ./pivotal-source/web/regression/runtests.py
     status=$?
 
+    branch_name=`cd pivotal-source && git branch | grep \* | cut -d ' ' -f2`
+
+    sed -i "s/changemetobranchname/plumadmin-$branch_name/" ./pipeline-ci/manifest.yml
+
     mkdir -p output
     cp -r ./pivotal-source/web output
     cp ./pipeline-ci/config_local_cf.py output/web/config_local.py
