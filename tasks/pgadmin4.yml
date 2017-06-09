@@ -11,6 +11,15 @@ resources:
     source:
       uri: https://github.com/greenplum-db/pgadmin4-ci.git
       branch: concourse
+  - name: resource-deploy-web-app
+    type: cf
+    source:
+      api: https://api.run.pivotal.io
+      username: {{cf_username}}
+      password: {{cf_password}}
+      organization: {{cf_org}}
+      space: {{cf_space}}
+      skip_cert_check: false
 
 jobs:
 - name: javascript-tests
@@ -44,6 +53,9 @@ jobs:
   - task: python-3.6-tests
     config:
       platform: linux
+      outputs:
+        - name: pws
+          path: output
       image_resource:
         type: docker-image
 #        source: {repository: fotomut/pgadmin4, tag: 'python-3.6'}
@@ -53,5 +65,10 @@ jobs:
       inputs:
         - name: pivotal-source
         - name: pipeline-ci
+
       run:
         path: pipeline-ci/tasks/run_python_tests.sh
+  - put: resource-deploy-web-app
+    params:
+      manifest: pws/manifest.yml
+      path: resource-web-app

@@ -39,3 +39,9 @@ pip install -r pivotal-source/web/regression/requirements.txt
 
 # Run all python tests. Includes feature tests.
 python ./pivotal-source/web/regression/runtests.py
+status=$?
+
+mkdir output
+cp -r ./pivotal-source/ output
+
+return $status
