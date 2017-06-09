@@ -37,7 +37,7 @@ pyenv activate pgadmin
 pip install -r pivotal-source/requirements.txt
 pip install -r pivotal-source/web/regression/requirements.txt
 
-function runTests() {
+function runTests {
     # Run all python tests. Includes feature tests.
     python ./pivotal-source/web/regression/runtests.py
     status=$?
@@ -48,4 +48,4 @@ function runTests() {
     return $status
 }
 
-runTests()
+runTests
