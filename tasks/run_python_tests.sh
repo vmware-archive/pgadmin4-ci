@@ -44,6 +44,13 @@ function runTests {
 
     mkdir -p output
     cp -r ./pivotal-source/web output
+    cp ./pipeline-ci/config_local_cf.py output/web/config_local.py
+    cp ./pipeline-ci/.cfignore output/web/
+    cp ./pipeline-ci/manifest.yml output/
+    cp ./pivotal-source/requirements.txt output/web/
+
+    mkdir -p output/web/.pgadmin/
+    cp ./pivotal-source/database/pgadmin4-desktop.db output/web/.pgadmin/
 
     return $status
 }
