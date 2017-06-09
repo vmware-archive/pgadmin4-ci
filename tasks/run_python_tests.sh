@@ -37,11 +37,15 @@ pyenv activate pgadmin
 pip install -r pivotal-source/requirements.txt
 pip install -r pivotal-source/web/regression/requirements.txt
 
-# Run all python tests. Includes feature tests.
-python ./pivotal-source/web/regression/runtests.py
-status=$?
+function runTests() {
+    # Run all python tests. Includes feature tests.
+    python ./pivotal-source/web/regression/runtests.py
+    status=$?
 
-mkdir output
-cp -r ./pivotal-source/web output
+    mkdir -p output
+    cp -r ./pivotal-source/web output
 
-return $status
+    return $status
+}
+
+runTests()
