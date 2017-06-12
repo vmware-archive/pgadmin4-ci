@@ -1,3 +1,13 @@
+resource_types:
+- name: concourse-pipeline
+  type: docker-image
+  source:
+    repository: robdimsdale/concourse-pipeline-resource
+    tag: latest-final
+- name: git-branches
+  type: docker-image
+  source: {repository: vito/git-branches-resource}
+
 resources:
   - name: pivotal-source
     type: git
@@ -20,8 +30,47 @@ resources:
       organization: {{cf_org}}
       space: {{cf_space}}
       skip_cert_check: false
+  - name: my-pipelines
+    type: concourse-pipeline
+    source:
+      target: http://192.168.100.4:8080/
+      insecure: "true"
+      teams:
+      - name: main
+        username: {{concourse_user}}
+        password: {{concourse_pw}}
+  - name: source-branches
+    type: git-branches
+    source:
+      uri: https://github.com/greenplum-db/pgadmin4.git
 
 jobs:
+- name: pipeline-tweaker
+  plan:
+  - aggregate:
+    - get: pipeline-ci
+    - get: source-branches
+  - task: generate-pipeline
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source: {repository: ruby}
+      inputs:
+        - name: pipeline-ci
+        - name: source-branches
+      outputs:
+        - name: generated-pipelines
+      run:
+        path: pipeline-ci/scripts/generate_pipeline.rb
+        args: [source-branches/branches, generated-pipelines/generated-feature-branch-pipeline.yml]
+  - put: my-pipelines
+    params:
+      pipelines:
+      - name: my-pipeline
+        team: main
+        config_file: generated-pipelines/generated-feature-branch-pipeline.yml
+
 - name: javascript-tests
   plan:
   - aggregate:
