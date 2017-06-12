@@ -44,7 +44,7 @@ function runTests {
 
     branch_name=`cd pivotal-source && git branch | grep \* | cut -d ' ' -f2`
 
-    sed -i "s/changemetobranchname/plumadmin-$branch_name/" ./pipeline-ci/manifest.yml
+    sed -i "s/changemetobranchname/plumadmin-master/" ./pipeline-ci/manifest.yml
 
     mkdir -p output
     cp -r ./pivotal-source/web output
