@@ -1,0 +1,13 @@
+resources:
+  - name: pivotal-source
+    type: git
+    source:
+      uri: https://github.com/greenplum-db/pgadmin4.git
+#      branch: query-results-patch
+#      branch: test-ci-error
+      branch: test-ci-master
+  - name: pipeline-ci
+    type: git
+    source:
+      uri: https://github.com/greenplum-db/pgadmin4-ci.git
+      branch: concourse
