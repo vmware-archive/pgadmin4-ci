@@ -17,3 +17,23 @@ jobs:
         - name: pipeline-ci
       run:
         path: pipeline-ci/scripts/run_karma.sh
+- name: <%= render_branch_name %>-python-tests
+  plan:
+  - aggregate:
+    - get: pivotal-source
+      trigger: true
+      passed: [<%= render_branch_name %>-javascript-tests]
+    - get: pipeline-ci
+      trigger: true
+      passed: [<%= render_branch_name %>-javascript-tests]
+  - task: python-tests
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source: {repository: joaopapereira/chrome-python-2.7.10, tag: 'latest'}
+      inputs:
+        - name: pivotal-source
+        - name: pipeline-ci
+      run:
+        path: pipeline-ci/scripts/run_python_tests.sh

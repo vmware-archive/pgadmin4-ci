@@ -4,7 +4,7 @@ require 'json'
 
 class CreateFeatureBranchPipeline
   def self.createFrom(yaml_erb_input_path, resources_template_path, yaml_destination_path, branches_list)
-    branches = branches_list.map { |branch| branch.strip()}
+    branches = branches_list.map { |branch| branch.strip() }
 
     template = File.read(yaml_erb_input_path)
 
@@ -27,11 +27,13 @@ class CreateFeatureBranchPipeline
     branches_list.each do |branch|
       render_branch_name = branch
       templated_yaml = YAML.load renderer.result(binding)
-      job_for_branch = templated_yaml['jobs'][0]
-      constructed_yaml['jobs'].push job_for_branch
+      jobs_for_branch = templated_yaml['jobs']
+
+      jobs_for_branch.each { |job|
+        constructed_yaml['jobs'].push job
+      }
     end
 
     constructed_yaml
   end
-
 end
