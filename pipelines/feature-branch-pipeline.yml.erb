@@ -1,12 +1,19 @@
 jobs:
 - name: <%= render_branch_name %>-javascript-tests
   plan:
-  - task: say-hello
+  - aggregate:
+    - get: pivotal-source
+      trigger: true
+    - get: pipeline-ci
+      trigger: true
+  - task: karma-tests
     config:
       platform: linux
       image_resource:
         type: docker-image
         source: {repository: fotomut/pgadmin4, tag: 'python-3.6'}
+      inputs:
+        - name: pivotal-source
+        - name: pipeline-ci
       run:
-        path: echo
-        args: ["from dynamic pipeline"]
+        path: pipeline-ci/scripts/run_karma.sh
