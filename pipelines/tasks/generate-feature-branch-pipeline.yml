@@ -1,0 +1,17 @@
+---
+platform: linux
+
+image_resource:
+  type: docker-image
+  source: {repository: ruby}
+
+inputs:
+  - name: pipeline-ci
+  - name: source-branches
+
+outputs:
+  - name: generated-pipelines
+
+run:
+  path: pipeline-ci/scripts/generate_pipeline.rb
+  args: [source-branches/branches, generated-pipelines/feature-branch-pipeline.yml]
