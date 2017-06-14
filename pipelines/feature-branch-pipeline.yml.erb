@@ -1,12 +1,8 @@
 jobs:
 - name: <%= render_branch_name %>-placeholder
   plan:
-  - aggregate:
-    - get: pivotal-source
-      trigger: true
-    - get: pipeline-ci
-      trigger: true
-  - task: unpause placeholder
+  - get: placeholder-resource
+  - task: unpause-placeholder
     config:
       platform: linux
       image_resource:
@@ -19,12 +15,12 @@ jobs:
 - name: <%= render_branch_name %>-javascript-tests
   plan:
   - aggregate:
+    - get: placeholder-resource
+      passed: [<%= render_branch_name %>-placeholder]
     - get: pivotal-source
       trigger: true
-      passed: [<%= render_branch_name %>-placeholder]
     - get: pipeline-ci
       trigger: true
-      passed: [<%= render_branch_name %>-placeholder]
   - task: karma-tests
     config:
       platform: linux
