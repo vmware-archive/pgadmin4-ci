@@ -9,27 +9,11 @@ resource_types:
   source: {repository: vito/git-branches-resource}
 
 resources:
-  - name: pivotal-source
-    type: git
-    source:
-      uri: https://github.com/greenplum-db/pgadmin4.git
-#      branch: query-results-patch
-#      branch: test-ci-error
-      branch: test-ci-master
   - name: pipeline-ci
     type: git
     source:
       uri: https://github.com/greenplum-db/pgadmin4-ci.git
       branch: concourse
-  - name: resource-deploy-web-app
-    type: cf
-    source:
-      api: https://api.run.pivotal.io
-      username: {{cf_username}}
-      password: {{cf_password}}
-      organization: {{cf_org}}
-      space: {{cf_space}}
-      skip_cert_check: false
   - name: feature-branch-pipeline
     type: concourse-pipeline
     source:
@@ -39,10 +23,6 @@ resources:
       - name: main
         username: {{concourse_user}}
         password: {{concourse_pw}}
-  - name: source-branches
-    type: git-branches
-    source:
-      uri: https://github.com/greenplum-db/pgadmin4.git
 
 jobs:
 - name: pipeline-tweaker
@@ -58,54 +38,3 @@ jobs:
       - name: pgadmin-feature-branches
         team: main
         config_file: generated-pipelines/feature-branch-pipeline.yml
-
-- name: javascript-tests
-  plan:
-  - aggregate:
-    - get: pivotal-source
-      trigger: true
-    - get: pipeline-ci
-      trigger: true
-  - task: karma-tests
-    config:
-      platform: linux
-      image_resource:
-        type: docker-image
-        source: {repository: fotomut/pgadmin4, tag: 'python-3.6'}
-      inputs:
-        - name: pivotal-source
-        - name: pipeline-ci
-      run:
-        path: pipeline-ci/tasks/run_karma.sh
-
-- name: Python-3.6-Postgres
-  plan:
-  - aggregate:
-    - get: pivotal-source
-      trigger: true
-      passed: [javascript-tests]
-    - get: pipeline-ci
-      trigger: true
-      passed: [javascript-tests]
-  - task: python-3.6-tests
-    config:
-      platform: linux
-      outputs:
-        - name: pws
-          path: output
-      image_resource:
-        type: docker-image
-#        source: {repository: fotomut/pgadmin4, tag: 'python-3.6'}
-#        source: {repository: markadams/chromium-xvfb-py2, tag: 'latest-onbuild'}
-#        source: {repository: justinribeiro/chrome-headless}
-        source: {repository: joaopapereira/chrome-python-2.7.10, tag: 'latest'}
-      inputs:
-        - name: pivotal-source
-        - name: pipeline-ci
-
-      run:
-        path: pipeline-ci/tasks/run_python_tests.sh
-  - put: resource-deploy-web-app
-    params:
-      manifest: pws/manifest.yml
-      path: pws
