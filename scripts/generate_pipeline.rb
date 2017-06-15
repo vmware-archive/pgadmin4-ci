@@ -8,8 +8,10 @@ target_file = cwd + ARGV[1]
 branches = File.readlines branch_list_filename
 jobs_template = this_dir + '../pipelines/feature-branch-pipeline-jobs.yml.erb'
 resources_template = this_dir + '../pipelines/feature-branch-pipeline-resources.yml.erb'
+static_pipeline_content = File.read this_dir + '../pipelines/static-generated-pipeline-header.yml'
 
-CreateFeatureBranchPipeline.createFrom(jobs_template,
+CreateFeatureBranchPipeline.createFrom(static_pipeline_content,
+                                       jobs_template,
                                        resources_template,
                                        target_file,
                                        branches)

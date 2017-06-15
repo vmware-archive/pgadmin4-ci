@@ -2,7 +2,7 @@ require 'erb'
 require 'yaml'
 
 class CreateFeatureBranchPipeline
-  def self.createFrom(jobs_template_path, resources_template_path, destination_pipeline_path, branch_list)
+  def self.createFrom(static_header, jobs_template_path, resources_template_path, destination_pipeline_path, branch_list)
     branches = branch_list.map { |branch| branch.strip() }
     jobs_renderer = ERB.new File.read(jobs_template_path)
     resources_renderer = ERB.new File.read(resources_template_path)
@@ -10,8 +10,7 @@ class CreateFeatureBranchPipeline
     constructed_yaml = construct_pipeline_for_branches(branches, jobs_renderer, resources_renderer)
 
     File.open(destination_pipeline_path, 'w') do |f|
-      f.write "# GENERATED, DO NOT TOUCH.\n"
-      f.write "# SEE feature-branch-pipeline.yml.erb and create_pipeline.rb in tasks/\n"
+      f.write static_header
       f.write YAML.dump(constructed_yaml)
     end
   end
