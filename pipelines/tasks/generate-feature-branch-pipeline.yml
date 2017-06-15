@@ -6,12 +6,12 @@ image_resource:
   source: {repository: ruby}
 
 inputs:
-  - name: pipeline-ci
+  - name: pgadmin-ci
   - name: source-branches
 
 outputs:
   - name: generated-pipelines
 
 run:
-  path: pipeline-ci/scripts/generate_pipeline.rb
+  path: pgadmin-ci/scripts/generate_pipeline.rb
   args: [source-branches/branches, generated-pipelines/feature-branch-pipeline.yml]
