@@ -1,12 +1,12 @@
 resource_types:
+- name: git-branches
+  type: docker-image
+  source: {repository: vito/git-branches-resource}
 - name: concourse-pipeline
   type: docker-image
   source:
     repository: robdimsdale/concourse-pipeline-resource
     tag: latest-final
-- name: git-branches
-  type: docker-image
-  source: {repository: vito/git-branches-resource}
 
 resources:
   - name: pipeline-ci
@@ -14,7 +14,11 @@ resources:
     source:
       uri: https://github.com/greenplum-db/pgadmin4-ci.git
       branch: concourse
-  - name: feature-branch-pipeline
+  - name: source-branches
+    type: git-branches
+    source:
+      uri: https://github.com/greenplum-db/pgadmin4.git
+  - name: pgadmin-feature-branches
     type: concourse-pipeline
     source:
       target: http://192.168.100.4:8080/
@@ -25,14 +29,23 @@ resources:
         password: {{concourse_pw}}
 
 jobs:
-- name: pipeline-tweaker
+- name: pipeline-generation-tests
+  plan:
+    - get: pipeline-ci
+      trigger: true
+    - task: ruby-specs
+      file: pipeline-ci/pipelines/tasks/test-feature-branch-pipeline-generation.yml
+
+- name: manually-generate-feature-branch-pipeline
   plan:
   - aggregate:
     - get: pipeline-ci
+      trigger: false
+      passed: [pipeline-generation-tests]
     - get: source-branches
   - task: generate-pipeline
     file: pipeline-ci/pipelines/tasks/generate-feature-branch-pipeline.yml
-  - put: feature-branch-pipeline
+  - put: pgadmin-feature-branches
     params:
       pipelines:
       - name: pgadmin-feature-branches

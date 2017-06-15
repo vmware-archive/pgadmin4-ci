@@ -1,0 +1,13 @@
+---
+platform: linux
+
+image_resource:
+  type: docker-image
+  source: {repository: cato1971/alpine-rspec}
+
+inputs:
+  - name: pipeline-ci
+
+run:
+  dir: pipeline-ci
+  path: rspec
