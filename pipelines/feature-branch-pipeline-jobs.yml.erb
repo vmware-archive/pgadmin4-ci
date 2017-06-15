@@ -1,8 +1,7 @@
-jobs:
-- name: <%= render_branch_name %>-placeholder
+- name: <%= render_branch_name %>-branch
   plan:
   - get: placeholder-resource
-  - task: unpause-placeholder
+  - task: kickoff-branch-build-placeholder
     config:
       platform: linux
       image_resource:
@@ -10,14 +9,14 @@ jobs:
         source: {repository: ubuntu}
       run:
         path: echo
-        args: ['<%= render_branch_name %> builds are unpaused']
+        args: ["going to run <%= render_branch_name %> branch builds"]
 
 - name: <%= render_branch_name %>-javascript-tests
   plan:
   - aggregate:
     - get: placeholder-resource
-      passed: [<%= render_branch_name %>-placeholder]
-    - get: pivotal-source
+      passed: [<%= render_branch_name %>-branch]
+    - get: pivotal-source-<%= render_branch_name %>
       trigger: true
     - get: pipeline-ci
       trigger: true
@@ -28,14 +27,16 @@ jobs:
         type: docker-image
         source: {repository: fotomut/pgadmin4, tag: 'python-3.6'}
       inputs:
-        - name: pivotal-source
+        - name: pivotal-source-<%= render_branch_name %>
         - name: pipeline-ci
       run:
         path: pipeline-ci/scripts/run_karma.sh
+        args: ["pivotal-source-<%= render_branch_name %>"]
+
 - name: <%= render_branch_name %>-python-tests
   plan:
   - aggregate:
-    - get: pivotal-source
+    - get: pivotal-source-<%= render_branch_name %>
       trigger: true
       passed: [<%= render_branch_name %>-javascript-tests]
     - get: pipeline-ci
@@ -48,7 +49,8 @@ jobs:
         type: docker-image
         source: {repository: joaopapereira/chrome-python-2.7.10, tag: 'latest'}
       inputs:
-        - name: pivotal-source
+        - name: pivotal-source-<%= render_branch_name %>
         - name: pipeline-ci
       run:
         path: pipeline-ci/scripts/run_python_tests.sh
+        args: ["pivotal-source-<%= render_branch_name %>"]

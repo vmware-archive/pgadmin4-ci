@@ -20,5 +20,5 @@ end
 pipeline_yaml = YAML.load get_pipeline_config
 
 job_names = list_of_jobs_from_config pipeline_yaml
-placeholder_jobs = job_names.select { |job| return job.include? '-placeholder' }
+placeholder_jobs = job_names.select { |job| return job.include? '-branch' }
 placeholder_jobs.each { |job| pause_job(job) }
