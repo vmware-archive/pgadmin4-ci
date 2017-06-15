@@ -6,8 +6,8 @@ image_resource:
   source: {repository: cato1971/alpine-rspec}
 
 inputs:
-  - name: pipeline-ci
+  - name: pgadmin-ci
 
 run:
-  dir: pipeline-ci
+  dir: pgadmin-ci
   path: rspec

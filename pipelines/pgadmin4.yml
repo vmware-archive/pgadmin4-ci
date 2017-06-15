@@ -9,7 +9,7 @@ resource_types:
     tag: latest-final
 
 resources:
-  - name: pipeline-ci
+  - name: pgadmin-ci
     type: git
     source:
       uri: https://github.com/greenplum-db/pgadmin4-ci.git
@@ -21,7 +21,7 @@ resources:
   - name: pgadmin-feature-branches
     type: concourse-pipeline
     source:
-      target: http://192.168.100.4:8080/
+      target: {{concourse_url}}
       insecure: "true"
       teams:
       - name: main
@@ -31,20 +31,20 @@ resources:
 jobs:
 - name: pipeline-generation-tests
   plan:
-    - get: pipeline-ci
+    - get: pgadmin-ci
       trigger: true
     - task: ruby-specs
-      file: pipeline-ci/pipelines/tasks/test-feature-branch-pipeline-generation.yml
+      file: pgadmin-ci/pipelines/tasks/test-feature-branch-pipeline-generation.yml
 
 - name: manually-generate-feature-branch-pipeline
   plan:
   - aggregate:
-    - get: pipeline-ci
+    - get: pgadmin-ci
       trigger: false
       passed: [pipeline-generation-tests]
     - get: source-branches
   - task: generate-pipeline
-    file: pipeline-ci/pipelines/tasks/generate-feature-branch-pipeline.yml
+    file: pgadmin-ci/pipelines/tasks/generate-feature-branch-pipeline.yml
   - put: pgadmin-feature-branches
     params:
       pipelines:
