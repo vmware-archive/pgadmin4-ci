@@ -52,7 +52,6 @@ jobs:
     - get: source-branches
   - task: generate-pipeline
     file: pipeline-ci/pipelines/tasks/generate-feature-branch-pipeline.yml
-
   - put: feature-branch-pipeline
     params:
       pipelines:

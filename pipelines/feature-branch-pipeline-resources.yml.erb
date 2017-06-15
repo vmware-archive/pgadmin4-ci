@@ -1,0 +1,15 @@
+- name: placeholder-resource
+  type: time
+  source: {interval: 1m}
+- name: pivotal-source-<%= render_branch_name %>
+  type: git
+  source:
+    uri: https://github.com/greenplum-db/pgadmin4.git
+#      branch: query-results-patch
+#      branch: test-ci-error
+    branch: <%= render_branch_name %>
+- name: pipeline-ci
+  type: git
+  source:
+    uri: https://github.com/greenplum-db/pgadmin4-ci.git
+    branch: concourse
