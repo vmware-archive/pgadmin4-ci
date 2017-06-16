@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 this_dir = __dir__() + '/'
 cwd = Dir.pwd() + '/'
-require_relative this_dir + '../lib/create_feature_branch_pipeline'
+require_relative this_dir + '../lib/feature_branch_pipeline_creator'
 
 branch_list_filename = cwd + ARGV[0]
 target_file = cwd + ARGV[1]
@@ -10,10 +10,11 @@ jobs_template = this_dir + '../pipelines/feature-branch-pipeline-jobs.yml.erb'
 resources_template = this_dir + '../pipelines/feature-branch-pipeline-resources.yml.erb'
 static_pipeline_content = File.read this_dir + '../pipelines/static-generated-pipeline-header.yml'
 
-CreateFeatureBranchPipeline.createFrom(static_pipeline_content,
-                                       jobs_template,
-                                       resources_template,
-                                       target_file,
-                                       branches)
+pipeline_creator = FeatureBranchPipelineCreator.new(branches,
+                                                    static_pipeline_content,
+                                                    jobs_template,
+                                                    resources_template,
+                                                    target_file)
+pipeline_creator.create
 
 puts File.read(target_file)

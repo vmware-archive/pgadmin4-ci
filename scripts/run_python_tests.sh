@@ -3,13 +3,6 @@
 PIVOTAL_SOURCE=$1
 apt-get update
 
-# TODO: Remove this
-apt-get -y install vim
-
-
-apt-get -y install curl
-apt-get -y install unzip
-
 # Install postgres
 sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" >> /etc/apt/sources.list.d/pgdg.list'
 wget -q https://www.postgresql.org/media/keys/ACCC4CF8.asc -O - | apt-key add -
