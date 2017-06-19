@@ -56,12 +56,13 @@ function runTests {
 runTests
 
 # Install postgres
-sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" >> /etc/apt/sources.list.d/pgdg.list'
-wget -q https://www.postgresql.org/media/keys/ACCC4CF8.asc -O - | apt-key add -
+#sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" >> /etc/apt/sources.list.d/pgdg.list'
+#wget -q https://www.postgresql.org/media/keys/ACCC4CF8.asc -O - | apt-key add -
 apt-get update
 apt-get -y install postgresql-9.2
 
 # Configure our instance of postgres
+rm -rf /etc/postgresql/9.5
 sed -i 's/md5/trust/' /etc/postgresql/9.2/main/pg_hba.conf
 /etc/init.d/postgresql restart
 
