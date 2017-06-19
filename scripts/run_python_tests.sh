@@ -67,3 +67,18 @@ sed -i 's/md5/trust/' /etc/postgresql/9.5/main/pg_hba.conf
 /etc/init.d/postgresql restart
 
 runTests
+
+wget https://ftp.postgresql.org/pub/source/v10beta1/postgresql-10beta1.tar.bz2
+tar xjf postgresql-10beta1.tar.bz2
+mv postgresql-10beta1 /etc/postgresql/
+cd /etc/postgresql/postgresql-10beta1
+./configure --without-readline
+make
+
+rm -rf /etc/postgresql/9.2
+rm -rf /etc/postgresql/9.5
+
+sed -i 's/md5/trust/' /etc/postgresql/postgresql-10beta1/main/pg_hba.conf
+/etc/init.d/postgresql restart
+
+runTests
