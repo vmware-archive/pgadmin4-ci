@@ -75,13 +75,20 @@ mv postgresql-10beta1 /etc/postgresql/
 pushd /etc/postgresql/postgresql-10beta1
     ./configure --without-readline
     make
+    make install
 popd
 
 rm -rf /etc/postgresql/9.2
 rm -rf /etc/postgresql/9.5
+/etc/init.d/postgresql stop
 
-#sed -i 's/@authorize@/trust/' /usr/local/pgsql/share/pg_hba.conf.sample
-./initdb -D /usr/local/pgsql/data
-/etc/init.d/postgresql restart
+#sed -i 's/@authmethodhost@/trust/' /usr/local/pgsql/share/pg_hba.conf.sample
+mkdir /usr/local/pgsql/data
+chown postgres:postgres -R /usr/local/pgsql/data
+su - postgres
+
+/usr/local/pgsql/bin/initdb -D /usr/local/pgsql/data
+/usr/local/pgsql/bin/pg_ctl -D /usr/local/pgsql/data/ -l logfile start
+#/etc/init.d/postgresql start
 
 runTests
