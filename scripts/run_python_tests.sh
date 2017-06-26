@@ -53,42 +53,12 @@ function runTests {
     return $status
 }
 
-#runTests
-
-# Install postgres
-#sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" >> /etc/apt/sources.list.d/pgdg.list'
-#wget -q https://www.postgresql.org/media/keys/ACCC4CF8.asc -O - | apt-key add -
-apt-get update
-apt-get -y install postgresql-9.5
-
-# Configure our instance of postgres
-rm -rf /etc/postgresql/9.2
-sed -i 's/md5/trust/' /etc/postgresql/9.5/main/pg_hba.conf
-/etc/init.d/postgresql restart
-
-#runTests
-
-wget https://ftp.postgresql.org/pub/source/v10beta1/postgresql-10beta1.tar.bz2
-tar xjf postgresql-10beta1.tar.bz2
-mv postgresql-10beta1 /etc/postgresql/
-
-pushd /etc/postgresql/postgresql-10beta1
-    ./configure --without-readline
-    make
-    make install
-popd
-
-rm -rf /etc/postgresql/9.2
-rm -rf /etc/postgresql/9.5
-/etc/init.d/postgresql stop
-
-#sed -i 's/@authmethodhost@/trust/' /usr/local/pgsql/share/pg_hba.conf.sample
-mkdir /usr/local/pgsql/data
-chown postgres:postgres -R /usr/local/pgsql/data
-su - postgres
-
-/usr/local/pgsql/bin/initdb -D /usr/local/pgsql/data
-/usr/local/pgsql/bin/pg_ctl -D /usr/local/pgsql/data/ -l logfile start
-#/etc/init.d/postgresql start
-
 runTests
+#
+#apt-get update
+#apt-get -y install postgresql-9.5
+#
+## Configure our instance of postgres
+#rm -rf /etc/postgresql/9.2
+#sed -i 's/md5/trust/' /etc/postgresql/9.5/main/pg_hba.conf
+#/etc/init.d/postgresql restart
