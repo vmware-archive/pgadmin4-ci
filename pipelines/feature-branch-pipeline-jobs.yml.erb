@@ -47,7 +47,7 @@
       platform: linux
       image_resource:
         type: docker-image
-        source: {repository: pivotalgeorge/pgadmin-ci, tag: '9.2'}
+        source: {repository: pivotalgeorge/pgadmin-ci, tag: 'latest'}
       inputs:
         - name: pivotal-source-<%= render_branch_name %>
         - name: pipeline-ci

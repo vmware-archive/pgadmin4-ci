@@ -3,13 +3,16 @@
 PIVOTAL_SOURCE=$1
 apt-get update
 
-# Install postgres
-sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" >> /etc/apt/sources.list.d/pgdg.list'
-wget -q https://www.postgresql.org/media/keys/ACCC4CF8.asc -O - | apt-key add -
-apt-get -y install postgresql-contrib postgres-9.2
+## Install postgres
+#sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" >> /etc/apt/sources.list.d/pgdg.list'
+#wget -q https://www.postgresql.org/media/keys/ACCC4CF8.asc -O - | apt-key add -
+#apt-get -y install postgresql-contrib postgres-9.2
 
 # Configure our instance of postgres
-sed -i 's/md5/trust/' /etc/postgresql/9.2/main/pg_hba.conf
+export PSQL_VERSION=`postgres -V | egrep -o '[0-9]{1,}\.[0-9]{1,}'`
+pg_createcluster $PSQL_VERSION main --start
+sed -i 's/peer/trust/' /etc/postgresql/$PSQL_VERSION/main/pg_hba.conf
+sed -i 's/md5/trust/' /etc/postgresql/$PSQL_VERSION/main/pg_hba.conf
 /etc/init.d/postgresql restart
 
 # Pass in the config file
@@ -18,8 +21,7 @@ cp pipeline-ci/test_config.json $PIVOTAL_SOURCE/web/regression/test_config.json
 
 # Replace the first line of the file with the missing import
 sed -i '/__future__/a from selenium.webdriver.common.desired_capabilities import DesiredCapabilities' $PIVOTAL_SOURCE/web/regression/runtests.py
-sed -i "s/Chrome()/Remote\(command_executor='http:\/\/127.0.0.1:4444\/wd\/hub', desired_capabilities=DesiredCapabilities.CHROME\)/)/" ./$PIVOTAL_SOURCE/web/regression/runtests.py
-
+sed -i "s/Chrome()/Remote\(command_executor='http:\/\/127.0.0.1:4444\/wd\/hub', desired_capabilities=DesiredCapabilities.CHROME\)/" ./$PIVOTAL_SOURCE/web/regression/runtests.py
 
 /opt/bin/start_selenium.sh &
 
@@ -53,12 +55,14 @@ function runTests {
     return $status
 }
 
+#service postgresql start
+
 runTests
-#
+
 #apt-get update
 #apt-get -y install postgresql-9.5
-#
-## Configure our instance of postgres
+
+# Configure our instance of postgres
 #rm -rf /etc/postgresql/9.2
 #sed -i 's/md5/trust/' /etc/postgresql/9.5/main/pg_hba.conf
 #/etc/init.d/postgresql restart

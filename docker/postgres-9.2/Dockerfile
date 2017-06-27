@@ -60,6 +60,7 @@ ENV PGDATA /var/lib/postgresql/data
 RUN mkdir -p "$PGDATA" && chown -R postgres:postgres "$PGDATA" && chmod 777 "$PGDATA" # this 777 will be replaced by 700 at runtime (allows semi-arbitrary "--user" values)
 VOLUME /var/lib/postgresql/data
 
-COPY our_entrypoint.sh /home/postgres/
+#COPY our_entrypoint.sh /home/postgres/
 
-ENTRYPOINT ["bash", "--rcfile", "/home/postgres/our_entrypoint.sh"]
+#ENTRYPOINT ["bash", "--rcfile", "/home/postgres/our_entrypoint.sh"]
+#RUN gosu postgres initdb
