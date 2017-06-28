@@ -1,4 +1,4 @@
-# this file is hosted at
+# this file is hosted at pivotalgeorge/pgadmin-ci:postgres-9.2
 FROM joaopapereira/chrome-python-2.7.10
 
 # explicitly set user/group IDs

@@ -5,7 +5,7 @@ DEBUG = True
 # Enable the test module
 MODULE_BLACKLIST.remove('test')
 # Log
-CONSOLE_LOG_LEVEL = DEBUG
+CONSOLE_LOG_LEVEL = INFO
 FILE_LOG_LEVEL = DEBUG
 
 DEFAULT_SERVER = '127.0.0.1'

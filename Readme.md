@@ -27,8 +27,8 @@ fly -t lite unpause-pipeline -p pgadmin
 
 **The first time we run** we also need to create a no-op pipeline for the concourse-pipeline resource to be happy:
 ```bash
-touch > scratch.yml
-fly -t lite set-pipeline -p pgadmin-feature-branches -c scratch.yml
+touch scratch.yml
+fly -t lite set-pipeline -p pgadmin-feature-branches -c scratch.yml --non-interactive
 fly -t lite unpause-pipeline -p pgadmin-feature-branches
 ```
 

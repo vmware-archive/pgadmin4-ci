@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -x
+
 PIVOTAL_SOURCE=$1
 
 gosu postgres initdb
@@ -40,3 +42,5 @@ function runTests {
 }
 
 runTests
+
+echo 'Exits runTests function'
