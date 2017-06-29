@@ -1,3 +1,4 @@
 .idea/
 **/.byebug*
 generated-*.yml
+**/scratch.yml

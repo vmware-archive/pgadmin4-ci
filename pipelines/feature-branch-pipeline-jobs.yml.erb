@@ -33,7 +33,7 @@
         path: pipeline-ci/scripts/run_karma.sh
         args: ["pivotal-source-<%= render_branch_name %>"]
 
-- name: <%= render_branch_name %>-python-tests
+- name: <%= render_branch_name %>-python-tests-on-postgres-9.2
   plan:
   - aggregate:
     - get: pivotal-source-<%= render_branch_name %>
@@ -61,7 +61,7 @@
       platform: linux
       image_resource:
         type: docker-image
-        source: {repository: pivotalgeorge/pgadmin-ci, tag: 'latest'}
+        source: {repository: pivotalgeorge/pgadmin-ci, tag: '9.2'}
       inputs:
         - name: webpacked-source
         - name: pipeline-ci

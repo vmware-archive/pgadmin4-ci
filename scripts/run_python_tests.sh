@@ -4,8 +4,7 @@ set -x
 
 PIVOTAL_SOURCE=$1
 
-gosu postgres initdb
-gosu postgres pg_ctl -D /var/lib/postgresql/data start
+/opt/bin/postgres_start.sh
 
 # Configure our instance of postgres
 #export PSQL_VERSION=`postgres -V | egrep -o '[0-9]{1,}\.[0-9]{1,}'`
@@ -27,8 +26,6 @@ sed -i "s/Chrome()/Remote\(command_executor='http:\/\/127.0.0.1:4444\/wd\/hub', 
 mkdir logs
 /opt/bin/start_selenium.sh & 1>logs/selenium.out 2>logs/selenium.err
 
-source ~/.bash_profile
-
 pyenv activate pgadmin
 
 ## Install project requirements
@@ -38,9 +35,8 @@ pip install -r $PIVOTAL_SOURCE/web/regression/requirements.txt
 function runTests {
     python $PIVOTAL_SOURCE/web/regression/runtests.py
     status=$?
+    /opt/bin/postgres_stop.sh
     return $status
 }
 
 runTests
-
-gosu postgres pg_ctl -D /var/lib/postgresql/data stop
