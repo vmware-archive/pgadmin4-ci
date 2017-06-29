@@ -60,8 +60,6 @@ ENV PGDATA /var/lib/postgresql/data
 RUN mkdir -p "$PGDATA" && chown -R postgres:postgres "$PGDATA" && chmod 777 "$PGDATA" # this 777 will be replaced by 700 at runtime (allows semi-arbitrary "--user" values)
 VOLUME /var/lib/postgresql/data
 
-RUN echo "source ~/.bash_profile" >> ~/.bashrc
-
 COPY postgres_start.sh /opt/bin/postgres_start.sh
 COPY postgres_stop.sh /opt/bin/postgres_stop.sh
 RUN chmod 500 /opt/bin/postgres_start.sh /opt/bin/postgres_stop.sh
