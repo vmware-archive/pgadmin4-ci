@@ -64,3 +64,4 @@ RUN echo "source ~/.bash_profile" >> ~/.bashrc
 
 COPY postgres_start.sh /opt/bin/postgres_start.sh
 COPY postgres_stop.sh /opt/bin/postgres_stop.sh
+RUN chmod 500 /opt/bin/postgres_start.sh /opt/bin/postgres_stop.sh
