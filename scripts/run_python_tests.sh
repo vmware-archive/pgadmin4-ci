@@ -25,6 +25,10 @@ pyenv activate pgadmin
 pip install -r $PIVOTAL_SOURCE/requirements.txt
 pip install -r $PIVOTAL_SOURCE/web/regression/requirements.txt
 
+pushd $PIVOTAL_SOURCE/web
+yarn install --no-progress
+popd
+
 function runTests {
     python $PIVOTAL_SOURCE/web/regression/runtests.py
     status=$?
