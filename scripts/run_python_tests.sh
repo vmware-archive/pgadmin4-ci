@@ -43,4 +43,4 @@ function runTests {
 
 runTests
 
-echo 'Exits runTests function'
+gosu postgres pg_ctl -D /var/lib/postgresql/data stop
