@@ -42,20 +42,6 @@
     - get: pipeline-ci
       trigger: true
       passed: [<%= render_branch_name %>-javascript-tests]
-  - task: webpack-javascript
-    config:
-      platform: linux
-      image_resource:
-        type: docker-image
-        source: {repository: fotomut/pgadmin4, tag: 'python-3.6'}
-      inputs:
-        - name: pivotal-source-<%= render_branch_name %>
-        - name: pipeline-ci
-      outputs:
-        - name: webpacked-source
-      run:
-        path: pipeline-ci/scripts/webpack_javascript.sh
-        args: ["pivotal-source-<%= render_branch_name %>", "webpacked-source"]
   - task: python-tests
     config:
       platform: linux
@@ -63,8 +49,8 @@
         type: docker-image
         source: {repository: pivotalgeorge/pgadmin-ci, tag: '9.2'}
       inputs:
-        - name: webpacked-source
+        - name: pivotal-source-<%= render_branch_name %>
         - name: pipeline-ci
       run:
         path: pipeline-ci/scripts/run_python_tests.sh
-        args: ["webpacked-source"]
+        args: ["pivotal-source-<%= render_branch_name %>"]
