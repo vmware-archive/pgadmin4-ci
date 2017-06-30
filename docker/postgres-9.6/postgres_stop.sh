@@ -2,4 +2,5 @@
 
 set -e
 
-gosu postgres pg_ctl -D /var/lib/postgresql/data stop
+echo "entered stop script
+gosu postgres pg_ctl stop

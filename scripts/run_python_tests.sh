@@ -30,9 +30,11 @@ yarn install --no-progress
 popd
 
 function runTests {
+    set +e
     python $PIVOTAL_SOURCE/web/regression/runtests.py
     status=$?
     /opt/bin/postgres_stop.sh
+    set -e
     return $status
 }
 

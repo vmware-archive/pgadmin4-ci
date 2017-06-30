@@ -2,4 +2,4 @@
 
 set -e
 
-gosu postgres pg_ctl -D /var/lib/postgresql/data stop
+gosu postgres pg_ctl stop
