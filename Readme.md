@@ -7,6 +7,7 @@ Now that we've moved away from Circle, here's how we develop our pipeline:
 ```bash
 cd concourse
 vagrant up
+cd ..
 ```
 
 grab fly from <http://192.168.100.4:8080> (concourse may take a few minutes to come up locally)
