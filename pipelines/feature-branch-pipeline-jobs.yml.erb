@@ -42,28 +42,38 @@
     - get: pipeline-ci
       trigger: true
       passed: [<%= render_branch_name %>-javascript-tests]
+#  - aggregate:
+  - task: python-tests-on-9.2
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source: {repository: pivotalgeorge/pgadmin-ci, tag: 'postgres-9.2'}
+      inputs:
+        - name: pivotal-source-<%= render_branch_name %>
+        - name: pipeline-ci
+      run:
+        path: pipeline-ci/scripts/run_python_tests.sh
+        args: ["pivotal-source-<%= render_branch_name %>"]
+
+- name: <%= render_branch_name %>-python-tests-on-postgres-9.6
+  plan:
   - aggregate:
-    - task: python-tests-on-9.2
-      config:
-        platform: linux
-        image_resource:
-          type: docker-image
-          source: {repository: pivotalgeorge/pgadmin-ci, tag: 'postgres-9.2'}
-        inputs:
-          - name: pivotal-source-<%= render_branch_name %>
-          - name: pipeline-ci
-        run:
-          path: pipeline-ci/scripts/run_python_tests.sh
-          args: ["pivotal-source-<%= render_branch_name %>"]
-    - task: python-tests-on-9.6
-      config:
-        platform: linux
-        image_resource:
-          type: docker-image
-          source: {repository: pivotalgeorge/pgadmin-ci, tag: 'postgres-9.6'}
-        inputs:
-          - name: pivotal-source-<%= render_branch_name %>
-          - name: pipeline-ci
-        run:
-          path: pipeline-ci/scripts/run_python_tests.sh
-          args: ["pivotal-source-<%= render_branch_name %>"]
+    - get: pivotal-source-<%= render_branch_name %>
+      trigger: true
+      passed: [<%= render_branch_name %>-javascript-tests]
+    - get: pipeline-ci
+      trigger: true
+      passed: [<%= render_branch_name %>-javascript-tests]
+  - task: python-tests-on-9.6
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source: {repository: pivotalgeorge/pgadmin-ci, tag: 'postgres-9.6'}
+      inputs:
+        - name: pivotal-source-<%= render_branch_name %>
+        - name: pipeline-ci
+      run:
+        path: pipeline-ci/scripts/run_python_tests.sh
+        args: ["pivotal-source-<%= render_branch_name %>"]
