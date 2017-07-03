@@ -15,7 +15,7 @@ sed -i '/__future__/a from selenium.webdriver.common.desired_capabilities import
 sed -i "s/Chrome()/Remote\(command_executor='http:\/\/127.0.0.1:4444\/wd\/hub', desired_capabilities=DesiredCapabilities.CHROME\)/" $PIVOTAL_SOURCE/web/regression/runtests.py
 
 mkdir logs
-/opt/bin/start_selenium.sh & 1>logs/selenium.out 2>logs/selenium.err
+/opt/bin/start_selenium.sh &
 
 # the shell we're in is probably not a login shell in concourse
 source ~/.bash_profile

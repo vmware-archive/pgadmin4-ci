@@ -1,6 +1,6 @@
 # this file is hosted at pivotalgeorge/pgadmin-ci:postgres-9.2
 
-FROM joaopapereira/chrome-python-2.7.10
+FROM pivotalgeorge/pgadmin-ci:joao-selenium-chrome
 
 # explicitly set user/group IDs
 RUN groupadd -r postgres --gid=999 && useradd -m -r -g postgres --uid=999 postgres

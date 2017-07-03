@@ -1,4 +1,4 @@
-# currently published as joaopapereira/chrome-python-2.7.10
+# currently published as pivotalgeorge/pgadmin-ci:joao-selenium-chrome
 FROM selenium/node-chrome:3.4.0-chromium
 
 USER root

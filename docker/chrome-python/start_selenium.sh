@@ -21,7 +21,7 @@ rm -f /tmp/.X*lock
 
 xvfb-run -n $SERVERNUM --server-args="-screen 0 $GEOMETRY -ac +extension RANDR" \
   java ${JAVA_OPTS} -jar /opt/selenium/selenium-server-standalone.jar browserName=chrome,platform=LINUX \
-  ${SE_OPTS} &
+  ${SE_OPTS} 1>/dev/null 2>/dev/null &
 NODE_PID=$!
 
 trap shutdown SIGTERM SIGINT
