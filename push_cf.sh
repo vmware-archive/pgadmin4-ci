@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
-branch_name=`git log -1 --oneline | cut -d "[" -f2 | cut -d "]" -f1`
+pushd ~/workspace/pgadmin4
+  branch_name=`git branch|grep '\*' |awk '{print $2}'`
+popd
 
 if [[ "$branch_name" =~ \ |\' ]]    #  slightly more readable: if [[ "$string" =~ ( |\') ]]
 then
