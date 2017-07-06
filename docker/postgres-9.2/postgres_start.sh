@@ -8,4 +8,4 @@ gosu postgres pg_ctl -D /var/lib/postgresql/data start
 sleep 5
 
 echo "This is:"
-TERM=ansi gosu postgres psql -c 'select version();'
+TERM=xterm gosu postgres psql -c 'select version();'
