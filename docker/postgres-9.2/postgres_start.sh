@@ -5,4 +5,7 @@ set -e
 gosu postgres initdb
 gosu postgres pg_ctl -D /var/lib/postgresql/data start
 
-sleep 20
+sleep 5
+
+echo "This is:"
+TERM=dumb gosu postgres psql -c 'select version();'
