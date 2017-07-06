@@ -6,6 +6,9 @@ PIVOTAL_SOURCE=$1
 
 /opt/bin/postgres_start.sh
 
+echo "This is:"
+gosu postgres psql -c 'select version();'
+
 # Pass in the config file
 cp pipeline-ci/config_local.py $PIVOTAL_SOURCE/web/config_local.py
 cp pipeline-ci/test_config.json $PIVOTAL_SOURCE/web/regression/test_config.json
