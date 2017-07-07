@@ -1,6 +1,6 @@
-# this file is hosted at pivotalgeorge/pgadmin-ci:postgres-9.6
+# currently published as pivotaldata/pgadmin:postgres-9.6
 
-FROM pivotalgeorge/pgadmin-ci:joao-selenium-chrome
+FROM pivotaldata/pgadmin:base-python-36-selenium-chrome
 
 RUN set -ex; \
 	if ! command -v gpg > /dev/null; then \

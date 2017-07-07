@@ -1,4 +1,4 @@
-# currently published as pivotalgeorge/pgadmin-ci:joao-selenium-chrome
+# currently published as pivotaldata/pgadmin:base-python-3.6-selenium-chrome
 FROM selenium/node-chrome:3.4.0-chromium
 
 USER root
