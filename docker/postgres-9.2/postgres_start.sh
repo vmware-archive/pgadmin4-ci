@@ -4,6 +4,8 @@ set -e
 
 gosu postgres initdb
 gosu postgres pg_ctl -D /var/lib/postgresql/data start
-
 sleep 5
-echo "This is probably postgres 9.2"
+
+echo
+echo "This should be postgres 9.2"
+echo

@@ -4,6 +4,8 @@ set -e
 
 gosu postgres initdb
 gosu postgres pg_ctl -D /var/lib/postgresql/data start
+sleep 5
 
-echo "This is:"
-gosu postgres psql --version
+echo
+echo "This should be postgres 9.6"
+echo
