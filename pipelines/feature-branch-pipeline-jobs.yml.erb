@@ -77,3 +77,25 @@
       run:
         path: pipeline-ci/scripts/run_python_tests.sh
         args: ["pivotal-source-<%= render_branch_name %>"]
+
+- name: <%= render_branch_name %>-python-tests-on-postgres-10
+  plan:
+  - aggregate:
+    - get: pivotal-source-<%= render_branch_name %>
+      trigger: true
+      passed: [<%= render_branch_name %>-javascript-tests]
+    - get: pipeline-ci
+      trigger: true
+      passed: [<%= render_branch_name %>-javascript-tests]
+  - task: python-tests-on-10
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source: {repository: pivotaldata/pgadmin, tag: 'postgres-10'}
+      inputs:
+        - name: pivotal-source-<%= render_branch_name %>
+        - name: pipeline-ci
+      run:
+        path: pipeline-ci/scripts/run_python_tests.sh
+        args: ["pivotal-source-<%= render_branch_name %>"]
