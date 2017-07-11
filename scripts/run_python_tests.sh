@@ -4,6 +4,7 @@ set -e
 
 PIVOTAL_SOURCE=$1
 
+chown -R postgres:postgres /var/lib/postgresql/data
 /opt/bin/postgres_start.sh
 
 # Pass in the config file
