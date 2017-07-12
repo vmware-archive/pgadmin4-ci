@@ -2,6 +2,8 @@
 
 set -e
 
+chown postgres -R /var/run/postgresql
+
 gosu postgres initdb
 gosu postgres pg_ctl -D /var/lib/postgresql/data start
 sleep 5
