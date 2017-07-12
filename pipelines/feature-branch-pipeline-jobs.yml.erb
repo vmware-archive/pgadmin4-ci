@@ -1,4 +1,5 @@
 - name: <%= render_branch_name %>-branch
+  public: true
   plan:
   - get: placeholder-resource
   - task: kickoff-branch-build-placeholder
@@ -12,6 +13,7 @@
         args: ["going to run <%= render_branch_name %> branch builds"]
 
 - name: <%= render_branch_name %>-javascript-tests
+  public: true
   plan:
   - aggregate:
     - get: placeholder-resource
@@ -34,6 +36,7 @@
         args: ["pivotal-source-<%= render_branch_name %>"]
 
 - name: <%= render_branch_name %>-python-tests-on-postgres-9.2
+  public: true
   plan:
   - aggregate:
     - get: pivotal-source-<%= render_branch_name %>
@@ -57,6 +60,7 @@
         args: ["pivotal-source-<%= render_branch_name %>"]
 
 - name: <%= render_branch_name %>-python-tests-on-postgres-9.6
+  public: true
   plan:
   - aggregate:
     - get: pivotal-source-<%= render_branch_name %>
@@ -79,6 +83,7 @@
         args: ["pivotal-source-<%= render_branch_name %>"]
 
 - name: <%= render_branch_name %>-python-tests-on-postgres-10
+  public: true
   plan:
   - aggregate:
     - get: pivotal-source-<%= render_branch_name %>

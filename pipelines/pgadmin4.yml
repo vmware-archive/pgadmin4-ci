@@ -30,6 +30,7 @@ resources:
 
 jobs:
 - name: pipeline-generation-tests
+  public: true
   plan:
     - get: pgadmin-ci
       trigger: true
@@ -37,6 +38,7 @@ jobs:
       file: pgadmin-ci/pipelines/tasks/test-feature-branch-pipeline-generation.yml
 
 - name: manually-generate-feature-branch-pipeline
+  public: true
   plan:
   - aggregate:
     - get: pgadmin-ci
