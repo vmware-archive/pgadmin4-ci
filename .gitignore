@@ -2,3 +2,4 @@
 **/.byebug*
 generated-*.yml
 **/scratch.yml
+gpcc-concourse-config.yml
