@@ -70,8 +70,8 @@ function _main() {
     fi
 
 
-    time make_cluster
-    time gen_env
+    time gosu gpadmin make_cluster
+    time gosu gpadmin gen_env
 
 }
 
