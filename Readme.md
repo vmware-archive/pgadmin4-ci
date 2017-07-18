@@ -44,11 +44,16 @@ The corresponding jobs will then run automatically (triggered by new commits pus
 ### Create a Docker Image
 
 ```bash
-$ docker build -t chrome-python-2.7.10 .
+$ docker build -t pivotaldata/pgadmin:postgres-10 .
 
-$ docker tag chrome-python-2.7.10 joaopapereira/chrome-python-2.7.10
+$ docker tag postgres-10 pivotaldata/pgadmin:postgres-10
 
-$ docker push joaopapereira/chrome-python-2.7.10
+$ docker push pivotaldata/pgadmin:postgres-10
+```
+
+In a single command:
+```bash
+export TAG=postgres-10 && docker build -t pivotaldata/pgadmin:$TAG docker/$TAG && docker push pivotaldata/pgadmin:$TAG
 ```
 
 ### Look at the container while the test running

@@ -23,6 +23,6 @@ describe 'Create a feature branch pipeline' do
 
     generated_pipeline = YAML.load_file('pipelines/generated-feature-branch-pipeline.yml')
     job_names = generated_pipeline['jobs'].map { |job| job['name'] }
-    expect(job_names).to include 'branch1-javascript-tests'
+    expect(job_names).to include 'pivotal-branch1-javascript-tests'
   end
 end

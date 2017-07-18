@@ -1,4 +1,4 @@
-- name: <%= render_branch_name %>-branch
+- name: <%= source_name + render_branch_name %>-branch
   public: true
   plan:
   - get: placeholder-resource
@@ -12,13 +12,13 @@
         path: echo
         args: ["going to run <%= render_branch_name %> branch builds"]
 
-- name: <%= render_branch_name %>-javascript-tests
+- name: <%= source_name + render_branch_name %>-javascript-tests
   public: true
   plan:
   - aggregate:
     - get: placeholder-resource
-      passed: [<%= render_branch_name %>-branch]
-    - get: pivotal-source-<%= render_branch_name %>
+      passed: [<%= source_name + render_branch_name %>-branch]
+    - get: <%= source_name + render_branch_name %>
       trigger: true
     - get: pipeline-ci
       trigger: true
@@ -29,22 +29,22 @@
         type: docker-image
         source: {repository: fotomut/pgadmin4, tag: 'python-3.6'}
       inputs:
-        - name: pivotal-source-<%= render_branch_name %>
+        - name: <%= source_name + render_branch_name %>
         - name: pipeline-ci
       run:
         path: pipeline-ci/scripts/run_karma.sh
-        args: ["pivotal-source-<%= render_branch_name %>"]
+        args: ["<%= source_name + render_branch_name %>"]
 
-- name: <%= render_branch_name %>-python-tests-on-postgres-9.2
+- name: <%= source_name + render_branch_name %>-python-tests-on-postgres-9.2
   public: true
   plan:
   - aggregate:
-    - get: pivotal-source-<%= render_branch_name %>
+    - get: <%= source_name + render_branch_name %>
       trigger: true
-      passed: [<%= render_branch_name %>-javascript-tests]
+      passed: [<%= source_name + render_branch_name %>-javascript-tests]
     - get: pipeline-ci
       trigger: true
-      passed: [<%= render_branch_name %>-javascript-tests]
+      passed: [<%= source_name + render_branch_name %>-javascript-tests]
 #  - aggregate:
   - task: python-tests-on-9.2
     config:
@@ -53,22 +53,22 @@
         type: docker-image
         source: {repository: pivotaldata/pgadmin, tag: 'postgres-9.2'}
       inputs:
-        - name: pivotal-source-<%= render_branch_name %>
+        - name: <%= source_name + render_branch_name %>
         - name: pipeline-ci
       run:
         path: pipeline-ci/scripts/run_python_tests.sh
-        args: ["pivotal-source-<%= render_branch_name %>"]
+        args: ["<%= source_name + render_branch_name %>"]
 
-- name: <%= render_branch_name %>-python-tests-on-postgres-9.6
+- name: <%= source_name + render_branch_name %>-python-tests-on-postgres-9.6
   public: true
   plan:
   - aggregate:
-    - get: pivotal-source-<%= render_branch_name %>
+    - get: <%= source_name + render_branch_name %>
       trigger: true
-      passed: [<%= render_branch_name %>-javascript-tests]
+      passed: [<%= source_name + render_branch_name %>-javascript-tests]
     - get: pipeline-ci
       trigger: true
-      passed: [<%= render_branch_name %>-javascript-tests]
+      passed: [<%= source_name + render_branch_name %>-javascript-tests]
   - task: python-tests-on-9.6
     config:
       platform: linux
@@ -76,22 +76,22 @@
         type: docker-image
         source: {repository: pivotaldata/pgadmin, tag: 'postgres-9.6'}
       inputs:
-        - name: pivotal-source-<%= render_branch_name %>
+        - name: <%= source_name + render_branch_name %>
         - name: pipeline-ci
       run:
         path: pipeline-ci/scripts/run_python_tests.sh
-        args: ["pivotal-source-<%= render_branch_name %>"]
+        args: ["<%= source_name + render_branch_name %>"]
 
-- name: <%= render_branch_name %>-python-tests-on-postgres-10
+- name: <%= source_name + render_branch_name %>-python-tests-on-postgres-10
   public: true
   plan:
   - aggregate:
-    - get: pivotal-source-<%= render_branch_name %>
+    - get: <%= source_name + render_branch_name %>
       trigger: true
-      passed: [<%= render_branch_name %>-javascript-tests]
+      passed: [<%= source_name + render_branch_name %>-javascript-tests]
     - get: pipeline-ci
       trigger: true
-      passed: [<%= render_branch_name %>-javascript-tests]
+      passed: [<%= source_name + render_branch_name %>-javascript-tests]
   - task: python-tests-on-10
     config:
       platform: linux
@@ -99,8 +99,8 @@
         type: docker-image
         source: {repository: pivotaldata/pgadmin, tag: 'postgres-10'}
       inputs:
-        - name: pivotal-source-<%= render_branch_name %>
+        - name: <%= source_name + render_branch_name %>
         - name: pipeline-ci
       run:
         path: pipeline-ci/scripts/run_python_tests.sh
-        args: ["pivotal-source-<%= render_branch_name %>"]
+        args: ["<%= source_name + render_branch_name %>"]
