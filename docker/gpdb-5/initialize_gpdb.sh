@@ -63,14 +63,14 @@ function _main() {
         exit 1
     fi
 
-    if [ "$TEST_OS" != "centos" -a "$TEST_OS" != "sles" -a "$TEST_OS" != "ubuntu" ]; then
+    if [ "$TEST_OS" != "centos" -a "$TEST_OS" != "sles" ]; then
         echo "FATAL: TEST_OS is set to an invalid value: $TEST_OS"
     echo "Configure TEST_OS to be centos or sles"
         exit 1
     fi
 
 
-    time gosu gpadmin make_cluster
+    time make_cluster
     time gen_env
 
 }

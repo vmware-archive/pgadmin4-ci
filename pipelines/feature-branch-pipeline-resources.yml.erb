@@ -13,3 +13,25 @@
   source:
     uri: https://github.com/greenplum-db/pgadmin4-ci.git
     branch: concourse
+#- name: gpdb_src
+#  type: git
+#  source:
+#    branch: master
+#    uri: https://github.com/greenplum-db/gpdb.git
+#    ignore_paths:
+#    - gpdb-doc/*
+#    - README*
+#- name: selenium-ubuntu-image
+#  type: docker-image
+#  source:
+#    repository: selenium/node-chrome<F24><F25>
+#    tag: '3.4.0-chromium'
+#
+#- name: binary_gpdb_ubuntu
+#  type: s3
+#  source:
+#    access_key_id: {{bucket-access-key-id}}
+#    bucket: gpcc
+#    region_name: {{aws-region}}
+#    secret_access_key: {{bucket-secret-access-key}}
+#    versioned_file: {{binary_swap_gpdb_centos_versioned_file}}

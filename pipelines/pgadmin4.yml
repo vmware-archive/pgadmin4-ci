@@ -24,7 +24,7 @@ resources:
       target: {{concourse_url}}
       insecure: "true"
       teams:
-      - name: main
+      - name: gpdb
         username: {{concourse_user}}
         password: {{concourse_pw}}
 
@@ -51,5 +51,5 @@ jobs:
     params:
       pipelines:
       - name: pgadmin-feature-branches
-        team: main
+        team: gpdb
         config_file: generated-pipelines/feature-branch-pipeline.yml

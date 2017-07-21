@@ -33,4 +33,4 @@ RUN apt-get -y install nodejs
 RUN apt-get -y install yarn
 
 # Install postgres client library
-apt-get install libpq-dev
+RUN apt-get -y install libpq-dev

@@ -1,0 +1,30 @@
+#resource_types:
+#- name: gpdb5
+#  type: docker-image
+#  source: {repository: pivotaldata/pgadmin, tag: 'gpdb-5'}
+resources:
+  - name: pgadmin-ci
+    type: git
+    source:
+      uri: https://github.com/greenplum-db/pgadmin4-ci.git
+      branch: concourse
+jobs:
+- name: bammm
+  public: true
+  plan:
+    - get: pgadmin-ci
+      trigger: true
+    - task: spinup-stuff
+      config:
+        inputs:
+          - name: pgadmin-ci
+        platform: linux
+        image_resource:
+          type: docker-image
+          source: {repository: pivotaldata/pgadmin, tag: 'gpdb-5'}
+        params:
+          MAKE_TEST_COMMAND: foo
+          TEST_OS: ubuntu
+        run:
+          path: /opt/bin/postgres_start.sh
+          args: ["Hello, world!"]

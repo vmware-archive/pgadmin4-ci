@@ -3,16 +3,7 @@
 set -eox pipefail
 
 CWDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-
-function make_cluster() {
-  source /usr/local/gpdb/greenplum_path.sh
-  # Currently, the max_concurrency tests in src/test/isolation2
-  # require max_connections of at least 129.
-  export DEFAULT_QD_MAX_CONNECT=150
-  pushd /gpdb_src/gpAux/gpdemo
-      su gpadmin -c make create-demo-cluster
-  popd
-}
+source "${CWDIR}/common.bash"
 
 function gen_env(){
   cat > /opt/run_test.sh <<-EOF
@@ -41,16 +32,18 @@ function gen_env(){
         source /opt/gcc_env.sh
         cd "\${1}/gpdb_src"
         source gpAux/gpdemo/gpdemo-env.sh
-
+        
 
         # Run your gpcc tests here
 
-EOF
+    EOF
 
     chmod a+x /opt/run_test.sh
 }
 
-
+function setup_gpadmin_user() {
+    ./gpdb_src/concourse/scripts/setup_gpadmin_user.bash "$TEST_OS"
+}
 
 function _main() {
     if [ -z "${MAKE_TEST_COMMAND}" ]; then
@@ -63,15 +56,18 @@ function _main() {
         exit 1
     fi
 
-    if [ "$TEST_OS" != "centos" -a "$TEST_OS" != "sles" -a "$TEST_OS" != "ubuntu" ]; then
+    if [ "$TEST_OS" != "centos" -a "$TEST_OS" != "sles" ]; then
         echo "FATAL: TEST_OS is set to an invalid value: $TEST_OS"
     echo "Configure TEST_OS to be centos or sles"
         exit 1
     fi
 
-
-    time gosu gpadmin make_cluster
+    time configure
+    time install_gpdb
+    time setup_gpadmin_user
+    time make_cluster
     time gen_env
+    time run_test
 
 }
 

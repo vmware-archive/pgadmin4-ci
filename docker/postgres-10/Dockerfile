@@ -1,4 +1,4 @@
-# currently published as pivotaldata/pgadmin:postgres-9.6
+# currently published as pivotaldata/pgadmin:postgres-10
 
 FROM gpccdocker/base-python-27-selenium-chrome:latest
 
