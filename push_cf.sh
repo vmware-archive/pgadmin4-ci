@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -e
 
 pushd ~/workspace/pgadmin4
   branch_name=`git branch|grep '\*' |awk '{print $2}'`
@@ -10,16 +11,14 @@ then
     exit 0
 fi
 
-cf login -a api.run.pivotal.io -u $CF_USER_NAME -p $CF_USER_PASSWORD -s plumadmin
+# cf login -a api.run.pivotal.io -u $CF_USER_NAME -p $CF_USER_PASSWORD -s plumadmin
 
-cp config_local_cf.py submodules/plummaster/web/config_local.py
-cp .cfignore submodules/plummaster/web/
-cp manifest.yml submodules/plummaster/
-cp submodules/plummaster/requirements.txt submodules/plummaster/web/
+cp config_local_cf.py ~/workspace/pgadmin4/web/config_local.py
+cp .cfignore ~/workspace/pgadmin4/web/
+cp manifest.yml ~/workspace/pgadmin4/
+cp ~/workspace/pgadmin4/requirements.txt ~/workspace/pgadmin4/web/
 
-pushd submodules/plummaster
-  git checkout $branch_name
-
+pushd ~/workspace/pgadmin4
   pushd web
     yarn install
     yarn run bundle
