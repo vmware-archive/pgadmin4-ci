@@ -12,6 +12,6 @@ git clone https://github.com/pyenv/pyenv-virtualenv.git $(pyenv root)/plugins/py
 echo 'eval "$(pyenv virtualenv-init -)"' >> ~/.bash_profile
 source ~/.bash_profile
 
-pyenv install 3.6.0
-pyenv virtualenv 3.6.0 pgadmin
+pyenv install 2.7.10
+pyenv virtualenv 2.7.10 pgadmin
 pyenv activate pgadmin
