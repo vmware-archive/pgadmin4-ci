@@ -46,6 +46,9 @@ RUN cd postgresql-10beta2 \
 RUN cd postgresql-10beta2 \
  && make install
 
+RUN cd postgresql-10beta2/contrib/cube \
+ && make && make install
+
 # make the sample config easier to munge (and "correct by default")
 RUN sed -ri "s!^#?(listen_addresses)\s*=\s*\S+.*!\1 = '*'!" /usr/local/share/postgresql/postgresql.conf.sample
 
