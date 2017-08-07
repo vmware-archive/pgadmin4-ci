@@ -47,6 +47,7 @@
       passed: [<%= source_name + render_branch_name %>-javascript-tests]
 #  - aggregate:
   - task: python-tests-on-9.2
+    attempts: 3
     config:
       platform: linux
       image_resource:
@@ -70,6 +71,7 @@
       trigger: true
       passed: [<%= source_name + render_branch_name %>-javascript-tests]
   - task: python-tests-on-9.6
+    attempts: 3
     config:
       platform: linux
       image_resource:
@@ -93,6 +95,7 @@
       trigger: true
       passed: [<%= source_name + render_branch_name %>-javascript-tests]
   - task: python-tests-on-10
+    attempts: 3
     config:
       platform: linux
       image_resource:
