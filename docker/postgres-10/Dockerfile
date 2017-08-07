@@ -4,8 +4,8 @@ FROM gpccdocker/base-python-27-selenium-chrome:latest
 
 ### Build postgres 10 from source
 
-RUN wget https://ftp.postgresql.org/pub/source/v10beta1/postgresql-10beta1.tar.bz2
-RUN tar -xf postgresql-10beta1.tar.bz2
+RUN wget https://ftp.postgresql.org/pub/source/v10beta2/postgresql-10beta2.tar.bz2
+RUN tar -xf postgresql-10beta2.tar.bz2
 RUN apt-get update && apt-get install -y libreadline-dev
 
 # explicitly set user/group IDs
@@ -24,9 +24,9 @@ RUN set -x \
 	&& chmod +x /usr/local/bin/gosu \
 	&& gosu nobody true
 
-RUN cd postgresql-10beta1 \
+RUN cd postgresql-10beta2 \
  && ./configure  --prefix=/usr/local
-RUN cd postgresql-10beta1 \
+RUN cd postgresql-10beta2 \
  && gosu postgres make
 
 RUN set -ex; \
@@ -40,10 +40,10 @@ RUN set -ex; \
 	fi
 
 
-RUN cd postgresql-10beta1 \
+RUN cd postgresql-10beta2 \
  && gosu postgres make check
 
-RUN cd postgresql-10beta1 \
+RUN cd postgresql-10beta2 \
  && make install
 
 # make the sample config easier to munge (and "correct by default")
