@@ -9,12 +9,19 @@ branches = File.readlines branch_list_filename
 jobs_template = this_dir + '../pipelines/feature-branch-pipeline-jobs.yml.erb'
 resources_template = this_dir + '../pipelines/feature-branch-pipeline-resources.yml.erb'
 static_pipeline_content = File.read this_dir + '../pipelines/static-generated-pipeline-header.yml'
+concourse_config = {
+  'gpdb_host' => ENV['GPDB_HOST'],
+  'gpdb_username' => ENV['GPDB_USERNAME'],
+  'gpdb_password' => ENV['GPDB_PASSWORD'],
+  'gpdb_port' => ENV['GPDB_PORT'],
+}
 
 pipeline_creator = FeatureBranchPipelineCreator.new(branches,
                                                     static_pipeline_content,
                                                     jobs_template,
                                                     resources_template,
-                                                    target_file)
+                                                    target_file,
+                                                    concourse_config)
 pipeline_creator.create
 
 puts File.read(target_file)

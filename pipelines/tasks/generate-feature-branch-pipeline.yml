@@ -14,4 +14,6 @@ outputs:
 
 run:
   path: pgadmin-ci/scripts/generate_pipeline.rb
-  args: [source-branches/branches, generated-pipelines/feature-branch-pipeline.yml]
+  args:
+    - source-branches/branches
+    - generated-pipelines/feature-branch-pipeline.yml

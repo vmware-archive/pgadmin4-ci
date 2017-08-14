@@ -3,13 +3,21 @@
 set -e
 
 PIVOTAL_SOURCE=$1
+GPDB_HOST=$2
+GPDB_USERNAME=$3
+GPDB_PASSWORD=$4
+GPDB_PORT=$5
 
 #chown -R postgres:postgres /var/lib/postgresql/data
 #/opt/bin/postgres_start.sh
 
 # Pass in the config file
 cp pipeline-ci/config_local.py $PIVOTAL_SOURCE/web/config_local.py
-cp pipeline-ci/test_config.greenplum.json $PIVOTAL_SOURCE/web/regression/test_config.json
+sed -e "s/{{gpdb_host}}/$GPDB_HOST/" \
+    -e "s/{{gpdb_username}}/$GPDB_USERNAME/" \
+    -e "s/{{gpdb_password}}/$GPDB_PASSWORD/" \
+    -e "s/{{gpdb_port}}/$GPDB_PORT/" pipeline-ci/test_config.greenplum.json \
+  > $PIVOTAL_SOURCE/web/regression/test_config.json
 
 # Replace the first line of the file with the missing import
 sed -i '/__future__/a from selenium.webdriver.common.desired_capabilities import DesiredCapabilities' $PIVOTAL_SOURCE/web/regression/runtests.py

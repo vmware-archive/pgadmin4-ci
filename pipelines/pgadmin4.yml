@@ -47,9 +47,15 @@ jobs:
     - get: source-branches
   - task: generate-pipeline
     file: pgadmin-ci/pipelines/tasks/generate-feature-branch-pipeline.yml
+    params:
+      GPDB_HOST: {{gpdb_host}}
+      GPDB_USERNAME: {{gpdb_username}}
+      GPDB_PASSWORD: {{gpdb_password}}
+      GPDB_PORT: {{gpdb_port}}
   - put: pgadmin-feature-branches
     params:
       pipelines:
       - name: pgadmin-feature-branches
         team: gpdb
         config_file: generated-pipelines/feature-branch-pipeline.yml
+        vars_files: concourse-config.yml

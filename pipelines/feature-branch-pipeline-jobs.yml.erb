@@ -129,4 +129,9 @@
         - name: pipeline-ci
       run:
         path: pipeline-ci/scripts/run_gpdb_tests.sh
-        args: ["<%= source_name + render_branch_name %>"]
+        args:
+         - "<%= source_name + render_branch_name %>"
+         - {{gpdb_host}}
+         - {{gpdb_username}}
+         - {{gpdb_password}}
+         - {{gpdb_port}}
