@@ -1,41 +1,3 @@
-- name: compile_gpdb_ubuntu
-  plan:
-  - aggregate:
-    - get: gpdb_src
-      trigger: true
-    # - get: gpaddon_src
-    - get: selenium-ubuntu-image
-  - task: compile_gpdb
-    file: pipeline/tasks/compile_gpdb.yml
-    image: selenium-ubuntu-image
-    params:
-      IVYREPO_HOST: {{ivyrepo_host}}
-      IVYREPO_REALM: {{ivyrepo_realm}}
-      IVYREPO_USER: {{ivyrepo_user}}
-      IVYREPO_PASSWD: {{ivyrepo_passwd}}
-      CONFIGURE_FLAGS: {{configure_flags}}
-      TARGET_OS: centos
-      TARGET_OS_VERSION: 6
-      BLD_TARGETS: "clients loaders"
-  - aggregate:
-    - put: bin_gpdb_ubuntu
-      params:
-        file: gpdb_artifacts/bin_gpdb.tar.gz
-
-- name: gpcc_ubuntu
-  plan:
-  - aggregate:
-    - get: gpdb_src
-      passed: [compile_gpdb_ubuntu]
-    - get: bin_gpdb
-      resource: bin_gpdb_ubuntu
-      passed: [compile_gpdb_ubuntu]
-      trigger: true
-    - get: selenium-ubuntu-image
-  - task: gpcc
-    file: pipeline/tasks/gpcc.yml
-    image: selenium-ubuntu-image
-
 - name: <%= source_name + render_branch_name %>-branch
   public: true
   plan:
@@ -161,7 +123,7 @@
       platform: linux
       image_resource:
         type: docker-image
-        source: {repository: pivotaldata/pgadmin, tag: 'base-python-3.6-selenium-chrome'}
+        source: {repository: gpccdocker/base-python-27-selenium-chrome}
       inputs:
         - name: <%= source_name + render_branch_name %>
         - name: pipeline-ci
