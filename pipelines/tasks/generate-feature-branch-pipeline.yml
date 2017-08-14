@@ -17,3 +17,4 @@ run:
   args:
     - source-branches/branches
     - generated-pipelines/feature-branch-pipeline.yml
+    - generated-pipelines/concourse-config.yml

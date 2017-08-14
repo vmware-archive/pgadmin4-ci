@@ -5,6 +5,7 @@ require_relative this_dir + '../lib/feature_branch_pipeline_creator'
 
 branch_list_filename = cwd + ARGV[0]
 target_file = cwd + ARGV[1]
+config_file = cwd + ARGV[2]
 branches = File.readlines branch_list_filename
 jobs_template = this_dir + '../pipelines/feature-branch-pipeline-jobs.yml.erb'
 resources_template = this_dir + '../pipelines/feature-branch-pipeline-resources.yml.erb'
@@ -21,7 +22,8 @@ pipeline_creator = FeatureBranchPipelineCreator.new(branches,
                                                     jobs_template,
                                                     resources_template,
                                                     target_file,
-                                                    concourse_config)
+                                                    concourse_config,
+                                                    config_file)
 pipeline_creator.create
 
 puts File.read(target_file)

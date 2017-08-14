@@ -4,11 +4,12 @@ require_relative './feature_branch_pipeline_factory'
 
 class FeatureBranchPipelineCreator
 
-  def initialize(branch_list, static_header, jobs_template_path, resources_template_path, destination_pipeline_path, concourse_config)
+  def initialize(branch_list, static_header, jobs_template_path, resources_template_path, destination_pipeline_path, concourse_config, concourse_config_path)
     branches = branch_list.map(&:strip)
     jobs_renderer = ERB.new File.read(jobs_template_path)
     resources_renderer = ERB.new File.read(resources_template_path)
     @destination_pipeline_path = destination_pipeline_path
+    @concourse_config_path = concourse_config_path
     @static_header = static_header
     @concourse_config = concourse_config
 
@@ -23,7 +24,7 @@ class FeatureBranchPipelineCreator
   end
 
   def write_concourse_config_to_disk
-    File.open('concourse-config.yml', 'w') do |f|
+    File.open(@concourse_config_path, 'w') do |f|
       f.write @concourse_config.to_yaml
     end
   end

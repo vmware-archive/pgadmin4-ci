@@ -7,6 +7,7 @@ describe 'Create a feature branch pipeline' do
     @template = Dir.pwd() + '/pipelines/feature-branch-pipeline-jobs.yml.erb'
     @resources = Dir.pwd() + '/pipelines/feature-branch-pipeline-resources.yml.erb'
     @config_file = Dir.pwd() + '/pipelines/generated-feature-branch-pipeline.yml'
+    @vars_file = Dir.pwd() + '/pipelines/vars.yml'
     @concourse_config_vars = {'config_key' => 'config_value'}
   end
 
@@ -16,7 +17,8 @@ describe 'Create a feature branch pipeline' do
                                                         @template,
                                                         @resources,
                                                         @config_file,
-                                                        @concourse_config_vars)
+                                                        @concourse_config_vars,
+                                                        @vars_file)
     pipeline_creator.create
 
     generated_content = File.read('pipelines/generated-feature-branch-pipeline.yml')
@@ -35,7 +37,8 @@ describe 'Create a feature branch pipeline' do
                                                         @template,
                                                         @resources,
                                                         @config_file,
-                                                        @concourse_config_vars)
+                                                        @concourse_config_vars,
+                                                        @vars_file)
     pipeline_creator.create
 
     generated_pipeline = YAML.load_file('pipelines/generated-feature-branch-pipeline.yml')
@@ -49,10 +52,11 @@ describe 'Create a feature branch pipeline' do
                                                         @template,
                                                         @resources,
                                                         @config_file,
-                                                        @concourse_config_vars)
+                                                        @concourse_config_vars,
+                                                        @vars_file)
     pipeline_creator.create
 
-    generated_config = File.read('concourse-config.yml')
+    generated_config = File.read(@vars_file)
     expect(generated_config).to eq "---\nconfig_key: config_value\n"
   end
 end
