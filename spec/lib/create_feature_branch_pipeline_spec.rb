@@ -21,6 +21,12 @@ describe 'Create a feature branch pipeline' do
 
     generated_content = File.read('pipelines/generated-feature-branch-pipeline.yml')
     expect(generated_content).to start_with '#Look a generated-file warning'
+    expect(generated_content).to include '{{gpdb_host}}'
+    expect(generated_content).not_to include '"{{gpdb_host}}"'
+    expect(generated_content).not_to include "\'{{gpdb_host}}\'"
+    expect(generated_content).to include '{{gpdb_username}}'
+    expect(generated_content).to include '{{gpdb_password}}'
+    expect(generated_content).to include '{{gpdb_port}}'
   end
 
   it 'should strip newlines' do

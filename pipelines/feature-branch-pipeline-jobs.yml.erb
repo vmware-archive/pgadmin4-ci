@@ -45,7 +45,6 @@
     - get: pipeline-ci
       trigger: true
       passed: [<%= source_name + render_branch_name %>-javascript-tests]
-#  - aggregate:
   - task: python-tests-on-9.2
     attempts: 3
     config:
@@ -131,7 +130,7 @@
         path: pipeline-ci/scripts/run_gpdb_tests.sh
         args:
          - "<%= source_name + render_branch_name %>"
-         - {{gpdb_host}}
-         - {{gpdb_username}}
-         - {{gpdb_password}}
-         - {{gpdb_port}}
+         - GPDB_HOST
+         - GPDB_USERNAME
+         - GPDB_PASSWORD
+         - GPDB_PORT

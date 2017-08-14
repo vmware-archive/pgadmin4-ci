@@ -31,7 +31,12 @@ class FeatureBranchPipelineCreator
   def write_pipeline_to_disk(constructed_yaml)
     File.open(@destination_pipeline_path, 'w') do |f|
       f.write @static_header
-      f.write YAML.dump(constructed_yaml)
+      yaml_string = YAML.dump(constructed_yaml)
+      yaml_string = yaml_string.sub('GPDB_HOST', '{{gpdb_host}}')
+        .sub('GPDB_USERNAME', '{{gpdb_username}}')
+        .sub('GPDB_PASSWORD', '{{gpdb_password}}')
+        .sub('GPDB_PORT', '{{gpdb_port}}')
+      f.write yaml_string
     end
   end
 end
