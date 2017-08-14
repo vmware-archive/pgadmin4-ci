@@ -32,10 +32,10 @@ class FeatureBranchPipelineCreator
     File.open(@destination_pipeline_path, 'w') do |f|
       f.write @static_header
       yaml_string = YAML.dump(constructed_yaml)
-      yaml_string = yaml_string.sub('GPDB_HOST', '{{gpdb_host}}')
-        .sub('GPDB_USERNAME', '{{gpdb_username}}')
-        .sub('GPDB_PASSWORD', '{{gpdb_password}}')
-        .sub('GPDB_PORT', '{{gpdb_port}}')
+      yaml_string = yaml_string.gsub('GPDB_HOST', '{{gpdb_host}}')
+        .gsub('GPDB_USERNAME', '{{gpdb_username}}')
+        .gsub('GPDB_PASSWORD', '{{gpdb_password}}')
+        .gsub('GPDB_PORT', '{{gpdb_port}}')
       f.write yaml_string
     end
   end
