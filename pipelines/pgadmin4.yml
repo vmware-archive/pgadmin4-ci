@@ -58,4 +58,5 @@ jobs:
       - name: pgadmin-feature-branches
         team: gpdb
         config_file: generated-pipelines/feature-branch-pipeline.yml
-        vars_files: concourse-config.yml
+        vars_files:
+        - concourse-config.yml
