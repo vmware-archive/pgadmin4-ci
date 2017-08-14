@@ -33,6 +33,12 @@ fly -t lite set-pipeline -p pgadmin-feature-branches -c scratch.yml --non-intera
 fly -t lite unpause-pipeline -p pgadmin-feature-branches
 ```
 
+For this open source project, the pipelines should be publicly accessible.
+```bash
+fly -t lite expose-pipeline -p pgadmin
+fly -t lite expose-pipeline -p pgadmin-feature-branches
+```
+
 Now go back to [your concourse](http://192.168.100.4:8080) and kick off the `manually-generate-feature-branch-pipeline` job
 
 If that succeeds, the pgadmin-feature-branches pipeline will now contain several jobs
