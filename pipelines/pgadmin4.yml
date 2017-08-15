@@ -13,7 +13,7 @@ resources:
     type: git
     source:
       uri: https://github.com/greenplum-db/pgadmin4-ci.git
-      branch: concourse
+      branch: master
   - name: source-branches
     type: git-branches
     source:
@@ -22,7 +22,6 @@ resources:
     type: concourse-pipeline
     source:
       target: {{concourse_url}}
-      insecure: "true"
       teams:
       - name: gpdb
         username: {{concourse_user}}
