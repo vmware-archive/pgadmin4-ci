@@ -8,9 +8,6 @@ GPDB_USERNAME=$3
 GPDB_PASSWORD=$4
 GPDB_PORT=$5
 
-#chown -R postgres:postgres /var/lib/postgresql/data
-#/opt/bin/postgres_start.sh
-
 # Pass in the config file
 cp pipeline-ci/config_local.py $PIVOTAL_SOURCE/web/config_local.py
 sed -e "s/{{greenplum_db_host}}/$GPDB_HOST/" \
@@ -40,9 +37,8 @@ popd
 
 function runTests {
     set +e
-    python $PIVOTAL_SOURCE/web/regression/runtests.py
+    python $PIVOTAL_SOURCE/web/regression/runtests.py --pkg feature_tests
     status=$?
-    #/opt/bin/postgres_stop.sh
     set -e
     return $status
 }
