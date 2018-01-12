@@ -99,7 +99,7 @@
       platform: linux
       image_resource:
         type: docker-image
-        source: {repository: gpccdocker/pgadmin, tag: 'postgres-10'}
+        source: {repository: pivotaldata/pgadmin, tag: 'postgres-10'}
       inputs:
         - name: <%= source_name + render_branch_name %>
         - name: pipeline-ci
