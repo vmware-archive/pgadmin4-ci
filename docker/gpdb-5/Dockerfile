@@ -46,11 +46,11 @@ RUN su - gp bash -c 'mkdir /home/gp/.ssh'
 
 ADD install_and_start_gpdb.sh /home/gp/install_and_start_gpdb.sh
 RUN chown gp:gp /home/gp/install_and_start_gpdb.sh
-RUN chmod u+x /home/gp/install_and_start_gpdb.sh
-RUN echo "gp ALL=NOPASSWD: ALL" > /etc/sudoers
-RUN echo "root ALL=NOPASSWD: ALL" > /etc/sudoers
+RUN chmod a+x /home/gp/install_and_start_gpdb.sh
+RUN echo "gp ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+RUN echo "root ALL=NOPASSWD: ALL" >> /etc/sudoers
 
-CMD sudo su - gp bash -c /home/gp/install_and_start_gpdb.sh
+CMD sudo su - gp bash -c /home/gp/install_and_start_gpdb.sh && watch -n 10 ps
 
 #RUN apt-get update
 #RUN apt-get install -y git-core \
