@@ -48,8 +48,9 @@ ADD install_and_start_gpdb.sh /home/gp/install_and_start_gpdb.sh
 RUN chown gp:gp /home/gp/install_and_start_gpdb.sh
 RUN chmod u+x /home/gp/install_and_start_gpdb.sh
 RUN echo "gp ALL=NOPASSWD: ALL" > /etc/sudoers
-USER gp
-CMD /home/gp/install_and_start_gpdb.sh
+RUN echo "root ALL=NOPASSWD: ALL" > /etc/sudoers
+
+CMD sudo su - gp bash -c /home/gp/install_and_start_gpdb.sh
 
 #RUN apt-get update
 #RUN apt-get install -y git-core \
