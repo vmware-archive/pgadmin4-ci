@@ -23,6 +23,8 @@ sed -i "s/Chrome()/Remote\(command_executor='http:\/\/127.0.0.1:4444\/wd\/hub', 
 mkdir logs
 /opt/bin/start_selenium.sh &
 
+sudo su - gp bash '/home/gp/install_and_start_gpdb.sh'
+
 # the shell we're in is probably not a login shell in concourse
 source ~/.bash_profile
 pyenv activate pgadmin

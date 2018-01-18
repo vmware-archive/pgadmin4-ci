@@ -122,7 +122,7 @@
       platform: linux
       image_resource:
         type: docker-image
-        source: {repository: gpccdocker/base-python-27-selenium-chrome}
+        source: {repository: pivotaldata/pgadmin:gpdb-5}
       inputs:
         - name: <%= source_name + render_branch_name %>
         - name: pipeline-ci
