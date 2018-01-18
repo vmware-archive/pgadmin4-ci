@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -e
+set -xe
 
 PIVOTAL_SOURCE=$1
 GPDB_HOST=$2
@@ -23,7 +23,7 @@ sed -i "s/Chrome()/Remote\(command_executor='http:\/\/127.0.0.1:4444\/wd\/hub', 
 mkdir logs
 /opt/bin/start_selenium.sh &
 
-sudo su - gp bash '/home/gp/install_and_start_gpdb.sh'
+sudo su - gp /bin/bash -c /home/gp/install_and_start_gpdb.sh
 
 # the shell we're in is probably not a login shell in concourse
 source ~/.bash_profile
