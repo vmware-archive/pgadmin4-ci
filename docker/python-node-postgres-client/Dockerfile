@@ -16,6 +16,8 @@ RUN apt-get -y install wget --fix-missing
 RUN apt-get -y install xvfb --fix-missing # chrome will use this to run headlessly
 RUN apt-get -y install unzip --fix-missing
 
+RUN apt-get -y install google-chrome-stable
+
 # install dbus - chromedriver needs this to talk to google-chrome
 RUN apt-get -y install dbus --fix-missing
 RUN apt-get -y install dbus-x11 --fix-missing
