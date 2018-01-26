@@ -1,6 +1,6 @@
 # currently published as pivotaldata/pgadmin:postgres-10
 
-FROM gpccdocker/base-python-27-selenium-chrome:latest
+FROM pivotaldata/pgadmin:base-python-27-selenium-chrome
 
 ### Build postgres 10 from source
 

@@ -1,6 +1,6 @@
 # currently published as pivotaldata/pgadmin:postgres-9.6
 
-FROM gpccdocker/base-python-27-selenium-chrome:latest
+FROM pivotaldata/pgadmin:base-python-27-selenium-chrome
 
 RUN set -ex; \
 	if ! command -v gpg > /dev/null; then \
@@ -47,9 +47,9 @@ RUN set -ex; \
 	apt-key list
 
 ENV PG_MAJOR 9.6
-ENV PG_VERSION 9.6.3-1.pgdg80+1
+ENV PG_VERSION 9.6.6-1.pgdg16.04+1
 
-RUN echo 'deb http://apt.postgresql.org/pub/repos/apt/ jessie-pgdg main' $PG_MAJOR > /etc/apt/sources.list.d/pgdg.list
+RUN echo 'deb http://apt.postgresql.org/pub/repos/apt/ xenial-pgdg main' $PG_MAJOR > /etc/apt/sources.list.d/pgdg.list
 
 RUN apt-get update \
 	&& apt-get install -y postgresql-common \

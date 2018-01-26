@@ -1,6 +1,6 @@
 # currently published as pivotaldata/pgadmin:gpdb-5
 
-FROM pivotaldata/pgadmin:base-python-36-selenium-chrome
+FROM pivotaldata/pgadmin:base-python-27-selenium-chrome
 
 EXPOSE 5432
 
