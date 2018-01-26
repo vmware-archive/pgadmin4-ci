@@ -4,3 +4,5 @@ generated-*.yml
 **/scratch.yml
 gpcc-concourse-config.yml
 concourse-lite/
+.DS_Store
+local-concourse-config.yml
