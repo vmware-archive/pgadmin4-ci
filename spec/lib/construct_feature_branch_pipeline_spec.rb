@@ -29,6 +29,8 @@ describe 'construct a feature branch pipeline' do
     expect(job_names).to include 'pivotal-branch2-javascript-tests'
     expect(job_names).to include 'pivotal-branch1-python-tests-on-postgres-9.2'
     expect(job_names).to include 'pivotal-branch2-python-tests-on-postgres-9.2'
+    expect(job_names).to include 'deploy-pivotal-branch1-pws'
+    expect(job_names).to include 'deploy-pivotal-branch2-pws'
   end
 
   it 'should include templated branches in resources' do

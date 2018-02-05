@@ -134,3 +134,29 @@
          - GPDB_USERNAME
          - GPDB_PASSWORD
          - GPDB_PORT
+
+- name: deploy-<%= source_name + render_branch_name %>-pws
+  public: true
+  plan:
+  - aggregate:
+    - get: <%= source_name + render_branch_name %>
+      trigger: true
+      passed: [<%= source_name + render_branch_name %>-python-tests-on-greenplum-5, <%= source_name + render_branch_name %>-python-tests-on-postgres-10,<%= source_name + render_branch_name %>-python-tests-on-postgres-9.6, <%= source_name + render_branch_name %>-python-tests-on-postgres-9.2]
+    - get: pipeline-ci
+      trigger: true
+      passed: [<%= source_name + render_branch_name %>-python-tests-on-greenplum-5, <%= source_name + render_branch_name %>-python-tests-on-postgres-10,<%= source_name + render_branch_name %>-python-tests-on-postgres-9.6, <%= source_name + render_branch_name %>-python-tests-on-postgres-9.2]
+  - task: push-to-cf
+    config:
+      platform: linux
+      inputs:
+        - name: <%= source_name + render_branch_name %>
+        - name: pipeline-ci
+      run:
+        path: pipeline-ci/scripts/prepare_to_push_to_cf.sh
+        args:
+         - "<%= source_name + render_branch_name %>"
+  - put: resource-deploy-web-app
+    params:
+      path: <%= source_name + render_branch_name %>/web/
+      manifest: <%= source_name + render_branch_name %>/web/manifest.yml
+      current_app_name: <%= source_name + render_branch_name %>

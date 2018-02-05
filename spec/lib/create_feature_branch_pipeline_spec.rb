@@ -29,6 +29,10 @@ describe 'Create a feature branch pipeline' do
     expect(generated_content).to include '{{gpdb_username}}'
     expect(generated_content).to include '{{gpdb_password}}'
     expect(generated_content).to include '{{gpdb_port}}'
+    expect(generated_content).to include '{{pws_username}}'
+    expect(generated_content).to include '{{pws_password}}'
+    expect(generated_content).to include '{{pws_org}}'
+    expect(generated_content).to include '{{pws_space}}'
   end
 
   it 'should strip newlines' do

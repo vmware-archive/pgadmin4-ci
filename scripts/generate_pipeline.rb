@@ -15,6 +15,10 @@ concourse_config = {
   'gpdb_username' => ENV['GPDB_USERNAME'],
   'gpdb_password' => ENV['GPDB_PASSWORD'],
   'gpdb_port' => ENV['GPDB_PORT'],
+  'pws_username' => ENV['PWS_USERNAME'],
+  'pws_password' => ENV['PWS_PASSWORD'],
+  'pws_org' => ENV['PWS_ORG'],
+  'pws_space' => ENV['PWS_SPACE'],
 }
 
 pipeline_creator = FeatureBranchPipelineCreator.new(branches,

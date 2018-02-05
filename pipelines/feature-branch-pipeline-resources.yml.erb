@@ -1,37 +1,25 @@
 - name: placeholder-resource
   type: time
   source: {interval: 1m}
+
 - name: <%= source_name + render_branch_name %>
   type: git
   source:
     uri: <%= git_uri %>
-#      branch: query-results-patch
-#      branch: test-ci-error
     branch: <%= render_branch_name %>
+
 - name: pipeline-ci
   type: git
   source:
     uri: https://github.com/greenplum-db/pgadmin4-ci.git
     branch: master
-#- name: gpdb_src
-#  type: git
-#  source:
-#    branch: master
-#    uri: https://github.com/greenplum-db/gpdb.git
-#    ignore_paths:
-#    - gpdb-doc/*
-#    - README*
-#- name: selenium-ubuntu-image
-#  type: docker-image
-#  source:
-#    repository: selenium/node-chrome<F24><F25>
-#    tag: '3.4.0-chromium'
-#
-#- name: binary_gpdb_ubuntu
-#  type: s3
-#  source:
-#    access_key_id: {{bucket-access-key-id}}
-#    bucket: gpcc
-#    region_name: {{aws-region}}
-#    secret_access_key: {{bucket-secret-access-key}}
-#    versioned_file: {{binary_swap_gpdb_centos_versioned_file}}
+
+- name: resource-deploy-web-app
+  type: cf
+  source:
+    api: https://api.run.pivotal.io
+    username: PWS_USERNAME
+    password: PWS_PASSWORD
+    organization: PWS_ORG
+    space: PWS_SPACE
+    skip_cert_check: false
