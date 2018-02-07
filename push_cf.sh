@@ -25,6 +25,8 @@ cp config_local_cf.py ~/workspace/pgadmin4/web/config_local.py
 cp .cfignore ~/workspace/pgadmin4/web/
 cp manifest.yml ~/workspace/pgadmin4/
 cp ~/workspace/pgadmin4/requirements.txt ~/workspace/pgadmin4/web/
+mkdir ~/workspace/pgadmin4/web/.pgadmin
+cp database/pgadmin4-desktop.db ~/workspace/pgadmin4/web/.pgadmin/
 
 pushd ~/workspace/pgadmin4
   # Webpack all the things
@@ -43,5 +45,6 @@ mv ~/workspace/pgadmin4/web/config_local.py~ ~/workspace/pgadmin4/web/config_loc
 rm ~/workspace/pgadmin4/web/.cfignore
 rm ~/workspace/pgadmin4/manifest.yml
 rm ~/workspace/pgadmin4/web/requirements.txt
+rm -Rf ~/workspace/pgadmin4/web/.pgadmin
 
 exit 0
