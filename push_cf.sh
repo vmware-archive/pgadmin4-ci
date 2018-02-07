@@ -28,15 +28,19 @@ cp ~/workspace/pgadmin4/requirements.txt ~/workspace/pgadmin4/web/
 mkdir ~/workspace/pgadmin4/web/.pgadmin
 cp database/pgadmin4-desktop.db ~/workspace/pgadmin4/web/.pgadmin/
 
+error=false
+
 pushd ~/workspace/pgadmin4
   # Webpack all the things
   pushd web
-    yarn install
-    yarn run bundle
+    yarn install || error=true
+    yarn run bundle || error=true
   popd
 
   # Upload app to cloud foundry
-  cf push plumadmin-$branch_name -f manifest.yml
+  if [ $error == false ] ; then
+      cf push plumadmin-$branch_name -f manifest.yml || error=true
+  fi
 popd
 
 # Clean up after uploading
@@ -46,5 +50,9 @@ rm ~/workspace/pgadmin4/web/.cfignore
 rm ~/workspace/pgadmin4/manifest.yml
 rm ~/workspace/pgadmin4/web/requirements.txt
 rm -Rf ~/workspace/pgadmin4/web/.pgadmin
+
+if [ $error == true ] ; then
+    exit -1
+fi
 
 exit 0
