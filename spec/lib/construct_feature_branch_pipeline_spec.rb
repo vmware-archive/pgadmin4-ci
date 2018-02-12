@@ -27,8 +27,8 @@ describe 'construct a feature branch pipeline' do
     job_names = generated_pipeline['jobs'].map { |job| job['name'] }
     expect(job_names).to include 'pivotal-branch1-javascript-tests'
     expect(job_names).to include 'pivotal-branch2-javascript-tests'
-    expect(job_names).to include 'pivotal-branch1-python-tests-on-postgres-9.2'
-    expect(job_names).to include 'pivotal-branch2-python-tests-on-postgres-9.2'
+    expect(job_names).to include 'pivotal-branch1-python-tests-on-pgadmin36-on-postgres-9.2'
+    expect(job_names).to include 'pivotal-branch2-python-tests-on-pgadmin36-on-postgres-9.2'
     expect(job_names).to include 'deploy-pivotal-branch1-pws'
     expect(job_names).to include 'deploy-pivotal-branch2-pws'
   end

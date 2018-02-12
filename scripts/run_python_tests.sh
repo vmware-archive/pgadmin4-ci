@@ -3,6 +3,7 @@
 set -e
 
 PIVOTAL_SOURCE=$1
+PYENV_ENV=$2
 
 chown -R postgres:postgres /var/lib/postgresql/data
 /opt/bin/postgres_start.sh
@@ -20,7 +21,7 @@ mkdir logs
 
 # the shell we're in is probably not a login shell in concourse
 source ~/.bash_profile
-pyenv activate pgadmin
+pyenv activate $PYENV_ENV
 
 ## Install project requirements
 pip install -r $PIVOTAL_SOURCE/requirements.txt

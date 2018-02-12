@@ -35,7 +35,7 @@
         path: pipeline-ci/scripts/run_karma.sh
         args: ["<%= source_name + render_branch_name %>"]
 
-- name: <%= source_name + render_branch_name %>-python-tests-on-postgres-9.2
+- name: <%= source_name + render_branch_name %>-python-tests-on-<%=pyenv_version%>-on-postgres-9.2
   public: true
   plan:
   - aggregate:
@@ -57,9 +57,11 @@
         - name: pipeline-ci
       run:
         path: pipeline-ci/scripts/run_python_tests.sh
-        args: ["<%= source_name + render_branch_name %>"]
+        args:
+            - "<%= source_name + render_branch_name %>"
+            - "<%= pyenv_version %>"
 
-- name: <%= source_name + render_branch_name %>-python-tests-on-postgres-9.6
+- name: <%= source_name + render_branch_name %>-python-tests-on-<%=pyenv_version%>-on-postgres-9.6
   public: true
   plan:
   - aggregate:
@@ -81,9 +83,11 @@
         - name: pipeline-ci
       run:
         path: pipeline-ci/scripts/run_python_tests.sh
-        args: ["<%= source_name + render_branch_name %>"]
+        args:
+            - "<%= source_name + render_branch_name %>"
+            - "<%= pyenv_version %>"
 
-- name: <%= source_name + render_branch_name %>-python-tests-on-postgres-10
+- name: <%= source_name + render_branch_name %>-python-tests-on-<%=pyenv_version%>-on-postgres-10
   public: true
   plan:
   - aggregate:
@@ -105,9 +109,11 @@
         - name: pipeline-ci
       run:
         path: pipeline-ci/scripts/run_python_tests.sh
-        args: ["<%= source_name + render_branch_name %>"]
+        args:
+            - "<%= source_name + render_branch_name %>"
+            - "<%= pyenv_version %>"
 
-- name: <%= source_name + render_branch_name %>-python-tests-on-greenplum-5
+- name: <%= source_name + render_branch_name %>-python-tests-on-<%=pyenv_version%>-on-greenplum-5
   public: true
   plan:
   - aggregate:
@@ -141,10 +147,10 @@
   - aggregate:
     - get: <%= source_name + render_branch_name %>
       trigger: true
-      passed: [<%= source_name + render_branch_name %>-python-tests-on-greenplum-5, <%= source_name + render_branch_name %>-python-tests-on-postgres-10,<%= source_name + render_branch_name %>-python-tests-on-postgres-9.6, <%= source_name + render_branch_name %>-python-tests-on-postgres-9.2]
+      passed: [<%= source_name + render_branch_name %>-python-tests-on-<%=pyenv_version%>-on-greenplum-5, <%= source_name + render_branch_name %>-python-tests-on-<%=pyenv_version%>-on-postgres-10,<%= source_name + render_branch_name %>-python-tests-on-<%=pyenv_version%>-on-postgres-9.6, <%= source_name + render_branch_name %>-python-tests-on-<%=pyenv_version%>-on-postgres-9.2]
     - get: pipeline-ci
       trigger: true
-      passed: [<%= source_name + render_branch_name %>-python-tests-on-greenplum-5, <%= source_name + render_branch_name %>-python-tests-on-postgres-10,<%= source_name + render_branch_name %>-python-tests-on-postgres-9.6, <%= source_name + render_branch_name %>-python-tests-on-postgres-9.2]
+      passed: [<%= source_name + render_branch_name %>-python-tests-on-<%=pyenv_version%>-on-greenplum-5, <%= source_name + render_branch_name %>-python-tests-on-<%=pyenv_version%>-on-postgres-10,<%= source_name + render_branch_name %>-python-tests-on-<%=pyenv_version%>-on-postgres-9.6, <%= source_name + render_branch_name %>-python-tests-on-<%=pyenv_version%>-on-postgres-9.2]
   - task: push-to-cf
     config:
       platform: linux
