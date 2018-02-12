@@ -1,6 +1,6 @@
 # currently published as pivotaldata/pgadmin:postgres-9.6
 
-FROM pivotaldata/pgadmin:base-python-27-selenium-chrome
+FROM pivotaldata/pgadmin:base-python-selenium-chrome
 
 RUN set -ex; \
 	if ! command -v gpg > /dev/null; then \
@@ -47,7 +47,7 @@ RUN set -ex; \
 	apt-key list
 
 ENV PG_MAJOR 9.6
-ENV PG_VERSION 9.6.6-1.pgdg16.04+1
+#ENV PG_VERSION 9.6.7-1.pgdg16.04+1
 
 RUN echo 'deb http://apt.postgresql.org/pub/repos/apt/ xenial-pgdg main' $PG_MAJOR > /etc/apt/sources.list.d/pgdg.list
 
@@ -55,8 +55,8 @@ RUN apt-get update \
 	&& apt-get install -y postgresql-common \
 	&& sed -ri 's/#(create_main_cluster) .*$/\1 = false/' /etc/postgresql-common/createcluster.conf \
 	&& apt-get install -y \
-		postgresql-$PG_MAJOR=$PG_VERSION \
-		postgresql-contrib-$PG_MAJOR=$PG_VERSION \
+		postgresql-$PG_MAJOR \
+		postgresql-contrib-$PG_MAJOR \
 	&& rm -rf /var/lib/apt/lists/*
 
 # make the sample config easier to munge (and "correct by default")

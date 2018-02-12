@@ -1,6 +1,6 @@
 # currently published as pivotaldata/pgadmin:postgres-10
 
-FROM pivotaldata/pgadmin:base-python-27-selenium-chrome
+FROM pivotaldata/pgadmin:base-python-selenium-chrome
 
 ### Build postgres 10 from source
 

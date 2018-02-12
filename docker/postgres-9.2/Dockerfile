@@ -1,6 +1,6 @@
 # currently published as pivotaldata/pgadmin:postgres-9.2
 
-FROM pivotaldata/pgadmin:base-python-27-selenium-chrome
+FROM pivotaldata/pgadmin:base-python-selenium-chrome
 
 # explicitly set user/group IDs
 RUN groupadd -r postgres --gid=999 && useradd -m -r -g postgres --uid=999 postgres
