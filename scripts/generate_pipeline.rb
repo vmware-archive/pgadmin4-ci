@@ -8,9 +8,9 @@ target_file = cwd + ARGV[1]
 config_file = cwd + ARGV[2]
 branches = File.readlines branch_list_filename
 
-grep -v 'default' ./branches > ./branches1 && mv ./branches1 ./branches
-grep -v 'electron-' ./branches > ./branches1 && mv ./branches1 ./branches
-grep -v 'autoformat' ./branches > ./branches1 && mv ./branches1 ./branches
+branches = branches.select{ |i| i[/default/] }
+branches = branches.select{ |i| i[/electron/] }
+branches = branches.select{ |i| i[/autoformat/] }
 
 jobs_template = this_dir + '../pipelines/feature-branch-pipeline-jobs.yml.erb'
 resources_template = this_dir + '../pipelines/feature-branch-pipeline-resources.yml.erb'
