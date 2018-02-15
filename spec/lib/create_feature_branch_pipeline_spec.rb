@@ -33,6 +33,7 @@ describe 'Create a feature branch pipeline' do
     expect(generated_content).to include '{{pws_password}}'
     expect(generated_content).to include '{{pws_org}}'
     expect(generated_content).to include '{{pws_space}}'
+    expect(generated_content).to include '{{tracker_token}}'
   end
 
   it 'should strip newlines' do

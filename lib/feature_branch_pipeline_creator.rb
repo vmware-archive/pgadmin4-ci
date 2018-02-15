@@ -41,6 +41,7 @@ class FeatureBranchPipelineCreator
         .gsub('PWS_PASSWORD', '{{pws_password}}')
         .gsub('PWS_ORG', '{{pws_org}}')
         .gsub('PWS_SPACE', '{{pws_space}}')
+        .gsub('TRACKER_TOKEN', '{{tracker_token}}')
       f.write yaml_string
     end
   end
