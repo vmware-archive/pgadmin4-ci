@@ -166,3 +166,8 @@
       path: <%= source_name + render_branch_name %>/web/
       manifest: <%= source_name + render_branch_name %>/web/manifest.yml
       current_app_name: <%= source_name + render_branch_name %>
+  - put: pivotal-tracker
+    params:
+      repos:
+      - <%= source_name + render_branch_name %>
+

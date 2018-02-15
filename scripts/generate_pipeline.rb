@@ -24,6 +24,7 @@ concourse_config = {
   'pws_password' => ENV['PWS_PASSWORD'],
   'pws_org' => ENV['PWS_ORG'],
   'pws_space' => ENV['PWS_SPACE'],
+  'tracker_token' => ENV['TRACKER_TOKEN']
 }
 
 pipeline_creator = FeatureBranchPipelineCreator.new(branches,

@@ -55,6 +55,7 @@ jobs:
       PWS_PASSWORD: {{pws_password}}
       PWS_ORG: {{pws_org}}
       PWS_SPACE: {{pws_space}}
+      TRACKER_TOKEN: {{tracker_token}}
   - put: pgadmin-feature-branches
     params:
       pipelines:
