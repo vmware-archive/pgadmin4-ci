@@ -143,6 +143,7 @@
 
 - name: deploy-<%= source_name + render_branch_name %>-pws
   public: true
+  max_in_flight: 1
   plan:
   - aggregate:
     - get: <%= source_name + render_branch_name %>
