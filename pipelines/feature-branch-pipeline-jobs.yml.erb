@@ -154,6 +154,9 @@
   - task: push-to-cf
     config:
       platform: linux
+      image_resource:
+        type: docker-image
+        source: {repository: ubuntu}
       inputs:
         - name: <%= source_name + render_branch_name %>
         - name: pipeline-ci
