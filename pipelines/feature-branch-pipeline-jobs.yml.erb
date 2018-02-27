@@ -161,14 +161,16 @@
       inputs:
         - name: <%= source_name + render_branch_name %>
         - name: pipeline-ci
+      outputs:
+        - name: cf-directory
       run:
         path: pipeline-ci/scripts/prepare_to_push_to_cf.sh
         args:
          - "<%= source_name + render_branch_name %>"
   - put: resource-deploy-web-app
     params:
-      path: <%= source_name + render_branch_name %>/web/
-      manifest: <%= source_name + render_branch_name %>/web/manifest.yml
+      path: cf-directory
+      manifest: cf-directory/manifest.yml
       current_app_name: <%= source_name + render_branch_name %>
   - put: pivotal-tracker
     params:
