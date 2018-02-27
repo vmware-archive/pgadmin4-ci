@@ -23,6 +23,6 @@ if [ $error == true ] ; then
     exit -1
 fi
 
-cp -rf $PIVOTAL_SOURCE/web cf-directory
+cp -rf $PIVOTAL_SOURCE/web/. cf-directory
 
 exit 0
