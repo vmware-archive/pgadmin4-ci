@@ -7,6 +7,10 @@ PIVOTAL_SOURCE=$1
 cp pipeline-ci/config_local_cf.py $PIVOTAL_SOURCE/web/config_local.py
 cp pipeline-ci/.cfignore $PIVOTAL_SOURCE/web/
 cp $PIVOTAL_SOURCE/requirements.txt $PIVOTAL_SOURCE/web/
+mkdir $PIVOTAL_SOURCE/web/.pgadmin
+cp pipeline-ci/database/pgadmin4-desktop.db $PIVOTAL_SOURCE/web/.pgadmin/
+
+
 
 error=false
 
