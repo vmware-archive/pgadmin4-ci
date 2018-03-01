@@ -35,6 +35,30 @@
         path: pipeline-ci/scripts/run_karma.sh
         args: ["<%= source_name + render_branch_name %>"]
 
+- name: <%= source_name + render_branch_name %>-python-linter
+  public: true
+  plan:
+  - aggregate:
+    - get: placeholder-resource
+      passed: [<%= source_name + render_branch_name %>-branch]
+    - get: <%= source_name + render_branch_name %>
+      trigger: true
+    - get: pipeline-ci
+      trigger: true
+  - task: linter
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source: {repository: pivotaldata/pgadmin, tag: 'postgres-9.2'}
+      inputs:
+        - name: <%= source_name + render_branch_name %>
+        - name: pipeline-ci
+      run:
+        path: pipeline-ci/scripts/python_lint.sh
+        args: ["<%= source_name + render_branch_name %>"]
+
+
 - name: <%= source_name + render_branch_name %>-python-tests-on-<%=pyenv_version%>-on-postgres-9.2
   public: true
   plan:
