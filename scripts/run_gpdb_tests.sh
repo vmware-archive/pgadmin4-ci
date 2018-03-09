@@ -39,7 +39,7 @@ popd
 
 function runTests {
     set +e
-    if [[$PIVOTAL_SOURCE = *"correct"*]]; then
+    if [[ $PIVOTAL_SOURCE = *"correct"* ]] ; then
         python $PIVOTAL_SOURCE/web/regression/runtests.py
     else
         python $PIVOTAL_SOURCE/web/regression/runtests.py --pkg feature_tests
@@ -50,3 +50,7 @@ function runTests {
 }
 
 runTests
+
+
+
+if [[ $PIVOTAL_SOURCE = *"correct"*]]; then echo 1; else echo 2; fi
