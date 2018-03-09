@@ -21,7 +21,8 @@
       "maintenance_db": "postgres",
       "sslmode": "prefer",
       "tablespace_path": "",
-      "enabled": true
+      "enabled": true,
+      "db_type": "gpdb"
     }
   ],
   "server_update_data": [
