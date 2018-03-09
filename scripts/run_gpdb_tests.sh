@@ -39,7 +39,11 @@ popd
 
 function runTests {
     set +e
-    python $PIVOTAL_SOURCE/web/regression/runtests.py --pkg feature_tests
+    if [[$PIVOTAL_SOURCE = *"correct"*]]; then
+        python $PIVOTAL_SOURCE/web/regression/runtests.py
+    else
+        python $PIVOTAL_SOURCE/web/regression/runtests.py --pkg feature_tests
+    fi
     status=$?
     set -e
     return $status
