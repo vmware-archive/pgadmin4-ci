@@ -6,4 +6,4 @@ set -e
 
 cd $PIVOTAL_SOURCE/web
 yarn install --no-progress
-yarn run karma start --single-run
+yarn test:karma-once
