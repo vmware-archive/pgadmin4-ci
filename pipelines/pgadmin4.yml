@@ -23,7 +23,7 @@ resources:
     source:
       target: {{concourse_url}}
       teams:
-      - name: main
+      - name: pgadmin
         username: {{concourse_user}}
         password: {{concourse_pw}}
 
