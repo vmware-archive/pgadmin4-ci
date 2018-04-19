@@ -6,12 +6,9 @@ image_resource:
     repository: pivotaldata/pgadmin
     tag: postgres-9.2
 
-outputs:
-- name: artifacts
 inputs:
-- name: pgadmin-repo
-- name: patches
+- name: pgadmin-repo-tarball
 - name: pgadmin-ci
 
 run:
-  path: pgadmin-ci/tasks/apply-patches/run.sh
+  path: pgadmin-ci/tasks/run-linter/run.sh

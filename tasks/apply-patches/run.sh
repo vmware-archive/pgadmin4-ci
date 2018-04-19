@@ -17,7 +17,7 @@ git \
   commit \
   -am 'Applied patch from CI'
 
-cat > metadata.txt <<EOF
+  cat > metadata.txt <<EOF
 *$(< $dir/patches/subject)*
 \`\`\`
 $(git diff ..$oldSHA --stat)
@@ -25,7 +25,7 @@ $(git diff ..$oldSHA --stat)
 $(ls $dir/patches/attachments/* |  xargs basename )
 EOF
 
-cat metadata.txt
+  cat metadata.txt
 popd > /dev/null
 
 tar -czf artifacts/pgadmin-repo.tgz pgadmin-repo
