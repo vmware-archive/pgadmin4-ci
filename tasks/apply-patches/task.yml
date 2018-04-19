@@ -1,0 +1,17 @@
+platform: linux
+
+image_resource:
+  type: docker-image
+  source:
+    repository: pivotaldata/pgadmin
+    tag: gpdb-5
+
+outputs:
+- name: artifacts
+inputs:
+- name: pgadmin-repo
+- name: patches
+- name: pgadmin-ci
+
+run:
+  path: pgadmin-ci/tasks/apply-patches/run.sh
