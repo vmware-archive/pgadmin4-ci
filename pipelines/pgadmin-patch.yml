@@ -1,0 +1,147 @@
+resource_types:
+- name: email-resource
+  type: docker-image
+  source:
+    repository: aemengo/email-resource
+
+- name: google-cloud-storage
+  type: docker-image
+  source:
+    repository: frodenas/gcs-resource
+
+resources:
+- name: gcs-bucket
+  type: google-cloud-storage
+  source: ((gcp_bucket_creds))
+
+- name: pgadmin-repo
+  type: git
+  source:
+    branch: master
+    uri: git://git.postgresql.org/git/pgadmin4.git
+
+- name: patches
+  type: email-resource
+  source: ((email_creds))
+
+- name: pgadmin-ci
+  type: git
+  source:
+    branch: master
+    uri: https://github.com/greenplum-db/pgadmin4-ci.git
+
+jobs:
+- name: apply-patches
+  plan:
+  - get: pgadmin-repo
+  - get: pgadmin-ci
+  - get: patches
+    trigger: true
+  - task: apply
+    file: pgadmin-ci/tasks/apply-patches/task.yml
+  - put: gcs-bucket
+    params:
+      file: artifacts/pgadmin-repo.tgz
+
+- name: run-linter
+  plan:
+  - aggregate:
+    - get: pgadmin-repo-tarball
+      resource: gcs-bucket
+      passed: [ apply-patches ]
+      trigger: true
+    - get: pgadmin-ci
+  - task: linter
+    file: pgadmin-ci/tasks/run-linter/task.yml
+
+- name: run-tests
+  plan:
+  - aggregate:
+    - get: pgadmin-repo-tarball
+      resource: gcs-bucket
+      passed: [ apply-patches ]
+      trigger: true
+    - get: pgadmin-ci
+  - task: javascript-tests
+    file: pgadmin-ci/tasks/run-javascript-tests/task.yml
+  - aggregate:
+    - task: accetpance-tests-pgadmin-on-postgres-9.2
+      attempts: 3
+      config:
+        platform: linux
+        image_resource: {type: docker-image, source: {repository: pivotaldata/pgadmin, tag: postgres-9.2}}
+        inputs: [{name: pgadmin-repo-tarball}, {name: pgadmin-ci}]
+        run: { path: pgadmin-ci/tasks/run-postgres-tests/run.sh }
+      params:
+        PYENV_ENV: pgadmin
+    - task: accetpance-tests-pgadmin-on-postgres-9.6
+      attempts: 3
+      config:
+        platform: linux
+        image_resource: {type: docker-image, source: {repository: pivotaldata/pgadmin, tag: postgres-9.6}}
+        inputs: [{name: pgadmin-repo-tarball}, {name: pgadmin-ci}]
+        run: { path: pgadmin-ci/tasks/run-postgres-tests/run.sh }
+      params:
+        PYENV_ENV: pgadmin
+    - task: accetpance-tests-pgadmin-on-postgres-10
+      attempts: 3
+      config:
+        platform: linux
+        image_resource: {type: docker-image, source: {repository: pivotaldata/pgadmin, tag: postgres-10}}
+        inputs: [{name: pgadmin-repo-tarball}, {name: pgadmin-ci}]
+        run: { path: pgadmin-ci/tasks/run-postgres-tests/run.sh }
+      params:
+        PYENV_ENV: pgadmin
+    - task: accetpance-tests-pgadmin36-on-postgres-9.2
+      attempts: 3
+      config:
+        platform: linux
+        image_resource: {type: docker-image, source: {repository: pivotaldata/pgadmin, tag: postgres-9.2}}
+        inputs: [{name: pgadmin-repo-tarball}, {name: pgadmin-ci}]
+        run: { path: pgadmin-ci/tasks/run-postgres-tests/run.sh }
+      params:
+        PYENV_ENV: pgadmin36
+    - task: accetpance-tests-pgadmin36-on-postgres-9.6
+      attempts: 3
+      config:
+        platform: linux
+        image_resource: {type: docker-image, source: {repository: pivotaldata/pgadmin, tag: postgres-9.6}}
+        inputs: [{name: pgadmin-repo-tarball}, {name: pgadmin-ci}]
+        run: { path: pgadmin-ci/tasks/run-postgres-tests/run.sh }
+      params:
+        PYENV_ENV: pgadmin36
+    - task: accetpance-tests-pgadmin36-on-postgres-10
+      attempts: 3
+      config:
+        platform: linux
+        image_resource: {type: docker-image, source: {repository: pivotaldata/pgadmin, tag: postgres-10}}
+        inputs: [{name: pgadmin-repo-tarball}, {name: pgadmin-ci}]
+        run: { path: pgadmin-ci/tasks/run-postgres-tests/run.sh }
+      params:
+        PYENV_ENV: pgadmin36
+    - task: accetpance-tests-on-greenplum-5
+      attempts: 3
+      config:
+        platform: linux
+        image_resource: {type: docker-image, source: {repository: pivotaldata/pgadmin, tag: gpdb-5}}
+        inputs: [{name: pgadmin-repo-tarball}, {name: pgadmin-ci}]
+        run: { path: pgadmin-ci/tasks/run-gpdb-tests/run.sh }
+      params:
+        GPDB_HOST: localhost
+        GPDB_USERNAME: gp
+        GPDB_PASSWORD: ""
+        GPDB_PORT: "5432"
+  on_success:
+    task: alert-success
+    file: pgadmin-ci/tasks/alert-slack/task.yml
+    params:
+      TITLE_MESSAGE: "Tests succeeded on the following patch"
+      TINT_COLOR: "#00D000" #green
+      SLACK_URL: ((slack_url))
+  on_failure:
+    task: alert-failure
+    file: pgadmin-ci/tasks/alert-slack/task.yml
+    params:
+      TITLE_MESSAGE: "Tests failed on the following patch"
+      TINT_COLOR: "#D00000" #red
+      SLACK_URL: ((slack_url))
