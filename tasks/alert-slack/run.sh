@@ -4,8 +4,7 @@ set -e
 
 tar -xf pgadmin-repo-tarball/*.tgz
 
-metadata=$(< pgadmin-repo/metadata.txt)
-
+metadata=$(cat pgadmin-repo/metadata.txt)
 payload=$(cat <<EOF
 {
 "channel": "#pgadmin4",
