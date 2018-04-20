@@ -29,7 +29,7 @@ payload=$(cat <<EOF
 EOF
 )
 
-echo curl \
+curl \
   -X POST \
   --data-urlencode "payload=$payload" \
   $SLACK_URL
