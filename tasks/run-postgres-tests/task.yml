@@ -1,8 +1,0 @@
-platform: linux
-
-inputs:
-- name: pgadmin-repo-tarball
-- name: pgadmin-ci
-
-run:
-  path: pgadmin-ci/tasks/run-postgres-tests/run.sh
