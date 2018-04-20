@@ -19,9 +19,9 @@ git \
 
   cat > metadata.txt <<EOF
 *$(< $dir/patches/subject)*
-\`\`\`
+\\`\\`\\`
 $(git diff ..$oldSHA --stat)
-\`\`\`
+\\`\\`\\`
 $(ls $dir/patches/attachments/* |  xargs basename )
 EOF
 
