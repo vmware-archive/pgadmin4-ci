@@ -4,7 +4,7 @@ image_resource:
   type: docker-image
   source:
     repository: pivotaldata/pgadmin
-    tag: postgres-9.2
+    tag: karma-tests
 
 inputs:
 - name: pgadmin-repo-tarball
