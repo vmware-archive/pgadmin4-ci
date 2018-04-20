@@ -3,7 +3,7 @@ platform: linux
 image_resource:
   type: docker-image
   source:
-    repository: appropriate/curl
+    repository: cfmanteiga/alpine-bash-curl-jq
 
 inputs:
 - name: pgadmin-repo-tarball
