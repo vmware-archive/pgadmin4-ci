@@ -2,7 +2,7 @@
 
 set -e
 
-text="*$(cat patches/subject)*\n$(ls patches/attachments/* |  xargs basename )"
+text="*$(cat patches/subject)*\n$(cd patches/attachments && ls )"
 payload=$(cat <<EOF
 {
 "channel": "#pgadmin4",

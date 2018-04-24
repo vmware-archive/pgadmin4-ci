@@ -20,7 +20,7 @@ git \
   cat > metadata.txt <<EOF
 *$(< $dir/patches/subject)*
 $(git diff ..$oldSHA --stat | sed 's/^/>/')
-$(ls $dir/patches/attachments/* |  xargs basename )
+$(cd $dir/patches/attachments && ls )
 EOF
 
   cat metadata.txt
