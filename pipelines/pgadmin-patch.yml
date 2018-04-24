@@ -32,6 +32,7 @@ resources:
 
 jobs:
 - name: apply-patches
+  public: true
   plan:
   - get: pgadmin-repo
   - get: pgadmin-ci
@@ -44,6 +45,7 @@ jobs:
       file: artifacts/pgadmin-repo.tgz
 
 - name: run-linter
+  public: true
   plan:
   - aggregate:
     - get: pgadmin-repo-tarball
@@ -55,6 +57,7 @@ jobs:
     file: pgadmin-ci/tasks/run-linter/task.yml
 
 - name: run-tests
+  public: true
   plan:
   - aggregate:
     - get: pgadmin-repo-tarball
