@@ -44,7 +44,7 @@ jobs:
       task: alert-failure
       file: pgadmin-ci/tasks/alert-slack-for-patch/task.yml
       params:
-        TITLE: "The following patch _failed_ to apply"
+        TITLE: "The following patch failed to apply"
         TITLE_LINK: "https://gpdb-dev.bosh.pivotalci.info/teams/pgadmin/pipelines/pgadmin-patch/jobs/apply-patches"
         COLOR: "#D00000" #red
         SLACK_URL: ((slack_url))
@@ -67,7 +67,7 @@ jobs:
       task: alert-failure
       file: pgadmin-ci/tasks/alert-slack/task.yml
       params:
-        TITLE: "Linter _failed_ on the following patch"
+        TITLE: "Linter failed on the following patch"
         TITLE_LINK: "https://gpdb-dev.bosh.pivotalci.info/teams/pgadmin/pipelines/pgadmin-patch/jobs/run-linter"
         COLOR: "#D00000" #red
         SLACK_URL: ((slack_url))
@@ -154,7 +154,7 @@ jobs:
     task: alert-success
     file: pgadmin-ci/tasks/alert-slack/task.yml
     params:
-      TITLE: "Tests _succeeded_ on the following patch"
+      TITLE: "Tests succeeded on the following patch"
       TITLE_LINK: "https://gpdb-dev.bosh.pivotalci.info/teams/pgadmin/pipelines/pgadmin-patch/jobs/run-tests"
       COLOR: "#00D000" #green
       SLACK_URL: ((slack_url))
@@ -162,7 +162,7 @@ jobs:
     task: alert-failure
     file: pgadmin-ci/tasks/alert-slack/task.yml
     params:
-      TITLE: "Tests _failed_ on the following patch"
+      TITLE: "Tests failed on the following patch"
       TITLE_LINK: "https://gpdb-dev.bosh.pivotalci.info/teams/pgadmin/pipelines/pgadmin-patch/jobs/run-tests"
       COLOR: "#D00000" #red
       SLACK_URL: ((slack_url))
