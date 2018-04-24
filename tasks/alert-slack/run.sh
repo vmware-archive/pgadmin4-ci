@@ -10,20 +10,16 @@ payload=$(cat <<EOF
 "channel": "#pgadmin4",
 "username": "patches-bot",
 "icon_emoji": ":robot_face:",
-"attachments":[
+"attachments": [
    {
-      "fallback":"$TITLE_MESSAGE (<https://gpdb-dev.bosh.pivotalci.info/teams/pgadmin/pipelines/pgadmin-patch/jobs/run-tests|build>)",
-      "pretext":"$TITLE_MESSAGE (<https://gpdb-dev.bosh.pivotalci.info/teams/pgadmin/pipelines/pgadmin-patch/jobs/run-tests|build>)",
-      "color":"$TINT_COLOR",
-      "fields":[
-         {
-            "title":"Info",
-            "value":"$metadata",
-            "short":false
-         }
-      ]
+      "fallback":"$TITLE - $TITLE_LINK",
+      "pretext":" ",
+      "title":"$TITLE",
+      "title_link":"$TITLE_LINK",
+      "text":"$metadata",
+      "color":"$COLOR"
    }
-]
+ ]
 }
 EOF
 )
