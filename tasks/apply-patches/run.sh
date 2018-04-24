@@ -11,11 +11,13 @@ git \
   apply \
   $dir/patches/attachments/*
 
+git add -A
+
 git \
   -c user.name=pgadmin-bot \
   -c user.email=pgadmin-bot@pivotal.io \
   commit \
-  -am 'Applied patch from CI'
+  -m 'Applied patch from CI'
 
   cat > metadata.txt <<EOF
 *$(< $dir/patches/subject)*
