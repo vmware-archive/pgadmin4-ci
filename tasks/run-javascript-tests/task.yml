@@ -11,4 +11,4 @@ inputs:
 - name: pgadmin-ci
 
 run:
-  path: pgadmin-ci/tasks/run-linter/run.sh
+  path: pgadmin-ci/tasks/run-javascript-tests/run.sh
