@@ -1,0 +1,13 @@
+platform: linux
+
+image_resource:
+  type: docker-image
+  source:
+    repository: appropriate/curl
+
+inputs:
+- name: patches
+- name: pgadmin-ci
+
+run:
+  path: pgadmin-ci/tasks/alert-slack-for-patch/run.sh
