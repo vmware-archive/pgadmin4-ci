@@ -90,7 +90,7 @@ jobs:
         platform: linux
         image_resource: {type: docker-image, source: {repository: pivotaldata/pgadmin, tag: postgres-9.2}}
         inputs: [{name: pgadmin-repo-tarball}, {name: pgadmin-ci}]
-        run: { path: pgadmin-ci/tasks/run-postgres-tests/run.sh }
+        run: { path: pgadmin-ci/tasks/truncate-output/run.sh, args: [ pgadmin-ci/tasks/run-postgres-tests/run.sh ] }
       params:
         PYENV_ENV: pgadmin
     - task: accetpance-tests-pgadmin-on-postgres-9.6
@@ -99,7 +99,7 @@ jobs:
         platform: linux
         image_resource: {type: docker-image, source: {repository: pivotaldata/pgadmin, tag: postgres-9.6}}
         inputs: [{name: pgadmin-repo-tarball}, {name: pgadmin-ci}]
-        run: { path: pgadmin-ci/tasks/run-postgres-tests/run.sh }
+        run: { path: pgadmin-ci/tasks/truncate-output/run.sh, args: [ pgadmin-ci/tasks/run-postgres-tests/run.sh ] }
       params:
         PYENV_ENV: pgadmin
     - task: accetpance-tests-pgadmin-on-postgres-10
@@ -108,7 +108,7 @@ jobs:
         platform: linux
         image_resource: {type: docker-image, source: {repository: pivotaldata/pgadmin, tag: postgres-10}}
         inputs: [{name: pgadmin-repo-tarball}, {name: pgadmin-ci}]
-        run: { path: pgadmin-ci/tasks/run-postgres-tests/run.sh }
+        run: { path: pgadmin-ci/tasks/truncate-output/run.sh, args: [ pgadmin-ci/tasks/run-postgres-tests/run.sh ] }
       params:
         PYENV_ENV: pgadmin
     - task: accetpance-tests-pgadmin36-on-postgres-9.2
@@ -117,7 +117,7 @@ jobs:
         platform: linux
         image_resource: {type: docker-image, source: {repository: pivotaldata/pgadmin, tag: postgres-9.2}}
         inputs: [{name: pgadmin-repo-tarball}, {name: pgadmin-ci}]
-        run: { path: pgadmin-ci/tasks/run-postgres-tests/run.sh }
+        run: { path: pgadmin-ci/tasks/truncate-output/run.sh, args: [ pgadmin-ci/tasks/run-postgres-tests/run.sh ] }
       params:
         PYENV_ENV: pgadmin36
     - task: accetpance-tests-pgadmin36-on-postgres-9.6
@@ -126,7 +126,7 @@ jobs:
         platform: linux
         image_resource: {type: docker-image, source: {repository: pivotaldata/pgadmin, tag: postgres-9.6}}
         inputs: [{name: pgadmin-repo-tarball}, {name: pgadmin-ci}]
-        run: { path: pgadmin-ci/tasks/run-postgres-tests/run.sh }
+        run: { path: pgadmin-ci/tasks/truncate-output/run.sh, args: [ pgadmin-ci/tasks/run-postgres-tests/run.sh ] }
       params:
         PYENV_ENV: pgadmin36
     - task: accetpance-tests-pgadmin36-on-postgres-10
@@ -135,7 +135,7 @@ jobs:
         platform: linux
         image_resource: {type: docker-image, source: {repository: pivotaldata/pgadmin, tag: postgres-10}}
         inputs: [{name: pgadmin-repo-tarball}, {name: pgadmin-ci}]
-        run: { path: pgadmin-ci/tasks/run-postgres-tests/run.sh }
+        run: { path: pgadmin-ci/tasks/truncate-output/run.sh, args: [ pgadmin-ci/tasks/run-postgres-tests/run.sh ] }
       params:
         PYENV_ENV: pgadmin36
     - task: accetpance-tests-on-greenplum-5
@@ -144,7 +144,7 @@ jobs:
         platform: linux
         image_resource: {type: docker-image, source: {repository: pivotaldata/pgadmin, tag: gpdb-5}}
         inputs: [{name: pgadmin-repo-tarball}, {name: pgadmin-ci}]
-        run: { path: pgadmin-ci/tasks/run-gpdb-tests/run.sh }
+        run: { path: pgadmin-ci/tasks/truncate-output/run.sh, args: [ pgadmin-ci/tasks/run-gpdb-tests/run.sh ] }
       params:
         GPDB_HOST: localhost
         GPDB_USERNAME: gp
