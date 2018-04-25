@@ -18,7 +18,7 @@ sed -e "s/{{db_name}}/PostgreSQL/" \
     -e "s/{{db_username}}/postgres/" \
     -e "s/{{db_password}}//" \
     -e "s/{{db_port}}/5432/" \
-    -e "s/{{db_version}}/$PG_VERSION/" \
+    -e "s/{{db_version}}/$PG_MAJOR/" \
     pgadmin-ci/test_config.template.json \
   > $PIVOTAL_SOURCE/web/regression/test_config.json
 
