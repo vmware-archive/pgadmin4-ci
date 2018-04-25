@@ -12,12 +12,12 @@
   "server_group": 1,
   "server_credentials": [
     {
-      "name": "Greenplum5",
-      "comment": "Greenplum Pivotal Server",
-      "host": "{{greenplum_db_host}}",
-      "db_username": "{{greenplum_db_username}}",
-      "db_password": "{{greenplum_db_password}}",
-      "db_port": {{greenplum_db_port}},
+      "name": "{{db_name}}",
+      "comment": "{{db_comment}}",
+      "host": "{{db_host}}",
+      "db_username": "{{db_username}}",
+      "db_password": "{{db_password}}",
+      "db_port": {{db_port}},
       "maintenance_db": "postgres",
       "sslmode": "prefer",
       "tablespace_path": "",
@@ -28,5 +28,15 @@
     {
       "comment": "This is test update comment"
     }
-  ]
+  ],
+  "default_binary_paths": {
+    "pg": "/usr/lib/postgresql/{{db_version}}/bin",
+    "ppas": "",
+    "gpdb": "/opt/gpdb/bin"
+  },
+  "DEFAULT_BINARY_PATHS": {
+    "pg": "/usr/lib/postgresql/{{db_version}}/bin",
+    "ppas": "",
+    "gpdb": "/opt/gpdb/bin"
+  }
 }
