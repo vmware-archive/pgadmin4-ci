@@ -8,6 +8,7 @@ image_resource:
 inputs:
 - name: patches
 - name: pgadmin-ci
+- name: build-metadata
 
 run:
   path: pgadmin-ci/tasks/alert-slack-for-patch/run.sh

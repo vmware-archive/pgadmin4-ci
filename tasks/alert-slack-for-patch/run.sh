@@ -3,6 +3,7 @@
 set -e
 
 text="*$(cat patches/subject)*\n$(cd patches/attachments && ls )"
+title_link=$(cat build-metadata/build-url)
 payload=$(cat <<EOF
 {
 "channel": "#pgadmin4",
@@ -10,10 +11,10 @@ payload=$(cat <<EOF
 "icon_emoji": ":robot_face:",
 "attachments": [
    {
-      "fallback":"$TITLE - $TITLE_LINK",
+      "fallback":"$TITLE - $title_link",
       "pretext":" ",
       "title":"$TITLE",
-      "title_link":"$TITLE_LINK",
+      "title_link":"$title_link",
       "text":"$text",
       "color":"$COLOR"
    }

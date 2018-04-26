@@ -9,6 +9,11 @@ resource_types:
   source:
     repository: frodenas/gcs-resource
 
+- name: build-metadata-resource
+  type: docker-image
+  source:
+    repository: aemengo/build-metadata-resource
+
 resources:
 - name: gcs-bucket
   type: google-cloud-storage
@@ -30,10 +35,14 @@ resources:
     branch: master
     uri: https://github.com/greenplum-db/pgadmin4-ci.git
 
+- name: build-metadata
+  type: build-metadata-resource
+
 jobs:
 - name: apply-patches
   public: true
   plan:
+  - get: build-metadata
   - get: pgadmin-repo
   - get: pgadmin-ci
   - get: patches
@@ -45,7 +54,6 @@ jobs:
       file: pgadmin-ci/tasks/alert-slack-for-patch/task.yml
       params:
         TITLE: "The following patch failed to apply"
-        TITLE_LINK: "https://gpdb-dev.bosh.pivotalci.info/teams/pgadmin/pipelines/pgadmin-patch/jobs/apply-patches"
         COLOR: "#D00000" #red
         SLACK_URL: ((slack_url))
   - put: gcs-bucket
@@ -55,12 +63,12 @@ jobs:
 - name: run-linter
   public: true
   plan:
-  - aggregate:
-    - get: pgadmin-repo-tarball
-      resource: gcs-bucket
-      passed: [ apply-patches ]
-      trigger: true
-    - get: pgadmin-ci
+  - get: build-metadata
+  - get: pgadmin-ci
+  - get: pgadmin-repo-tarball
+    resource: gcs-bucket
+    passed: [ apply-patches ]
+    trigger: true
   - task: linter
     file: pgadmin-ci/tasks/run-linter/task.yml
     on_failure:
@@ -68,19 +76,18 @@ jobs:
       file: pgadmin-ci/tasks/alert-slack/task.yml
       params:
         TITLE: "Linter failed on the following patch"
-        TITLE_LINK: "https://gpdb-dev.bosh.pivotalci.info/teams/pgadmin/pipelines/pgadmin-patch/jobs/run-linter"
         COLOR: "#D00000" #red
         SLACK_URL: ((slack_url))
 
 - name: run-tests
   public: true
   plan:
-  - aggregate:
-    - get: pgadmin-repo-tarball
-      resource: gcs-bucket
-      passed: [ apply-patches ]
-      trigger: true
-    - get: pgadmin-ci
+  - get: build-metadata
+  - get: pgadmin-ci
+  - get: pgadmin-repo-tarball
+    resource: gcs-bucket
+    passed: [ apply-patches ]
+    trigger: true
   - task: javascript-tests
     file: pgadmin-ci/tasks/run-javascript-tests/task.yml
   - aggregate:
@@ -155,7 +162,6 @@ jobs:
     file: pgadmin-ci/tasks/alert-slack/task.yml
     params:
       TITLE: "Tests succeeded on the following patch"
-      TITLE_LINK: "https://gpdb-dev.bosh.pivotalci.info/teams/pgadmin/pipelines/pgadmin-patch/jobs/run-tests"
       COLOR: "#00D000" #green
       SLACK_URL: ((slack_url))
   on_failure:
@@ -163,6 +169,5 @@ jobs:
     file: pgadmin-ci/tasks/alert-slack/task.yml
     params:
       TITLE: "Tests failed on the following patch"
-      TITLE_LINK: "https://gpdb-dev.bosh.pivotalci.info/teams/pgadmin/pipelines/pgadmin-patch/jobs/run-tests"
       COLOR: "#D00000" #red
       SLACK_URL: ((slack_url))

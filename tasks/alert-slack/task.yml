@@ -8,6 +8,7 @@ image_resource:
 inputs:
 - name: pgadmin-repo-tarball
 - name: pgadmin-ci
+- name: build-metadata
 
 run:
   path: pgadmin-ci/tasks/alert-slack/run.sh
