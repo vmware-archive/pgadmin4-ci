@@ -5,23 +5,27 @@ set -e
 dir=$PWD
 
 pushd pgadmin-repo > /dev/null
-oldSHA=$(git rev-parse HEAD)
+  oldSHA=$(git rev-parse HEAD)
 
-git \
-  apply \
-  $dir/patches/attachments/*
+  git \
+    apply \
+    $dir/patches/attachments/*
 
-git add -A
+  git add -A
 
-git \
-  -c user.name=pgadmin-bot \
-  -c user.email=pgadmin-bot@pivotal.io \
-  commit \
-  -m 'Applied patch from CI'
+  git \
+    -c user.name=pgadmin-bot \
+    -c user.email=pgadmin-bot@pivotal.io \
+    commit \
+    -m 'Applied patch from CI'
+
+  code_quotes='```'
 
   cat > metadata.txt <<EOF
 *$(< $dir/patches/subject)*
-$(git diff ..$oldSHA --stat | sed 's/^/>/')
+${code_quotes}
+$(git diff ..$oldSHA --stat)
+${code_quotes}
 $(cd $dir/patches/attachments && ls )
 EOF
 
