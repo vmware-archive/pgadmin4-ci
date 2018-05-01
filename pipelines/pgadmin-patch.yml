@@ -47,6 +47,8 @@ jobs:
   - get: pgadmin-ci
   - get: patches
     trigger: true
+    params:
+      attachment_filter: "\\.(patch|diff)$"
   - task: apply
     file: pgadmin-ci/tasks/apply-patches/task.yml
     on_failure:
