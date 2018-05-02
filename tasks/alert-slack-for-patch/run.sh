@@ -2,8 +2,8 @@
 
 set -e
 
-text="*$(cat patches/subject)*\n$(cd patches/attachments && ls )"
 title_link=$(cat build-metadata/build-url)
+text="*$(cat patches/subject)*\n$(cd patches/attachments && ls )"
 payload=$(cat <<EOF
 {
 "channel": "#pgadmin4",

@@ -4,7 +4,7 @@ set -e
 
 tar -xf pgadmin-repo-tarball/*.tgz
 title_link=$(cat build-metadata/build-url)
-metadata=$(cat pgadmin-repo/metadata.txt)
+metadata=$(cat pgadmin-repo/metadata.txt | sed 's,",\\",g')
 payload=$(cat <<EOF
 {
 "channel": "#pgadmin4",
