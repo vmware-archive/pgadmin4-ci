@@ -12,12 +12,12 @@ payload=$(cat <<EOF
 "icon_emoji": ":robot_face:",
 "attachments": [
    {
-      "fallback":"$TITLE - $title_link",
+      "fallback":"${TITLE} - ${title_link}",
       "pretext":" ",
-      "title":"$TITLE",
-      "title_link":"$title_link",
-      "text":"$metadata",
-      "color":"$COLOR"
+      "title":"${TITLE}",
+      "title_link":"${title_link}",
+      "text":"${metadata}",
+      "color":"${COLOR}"
    }
  ]
 }
