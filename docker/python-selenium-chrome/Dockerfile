@@ -1,4 +1,4 @@
-# currently published as pivotaldata/pgadmin:base-python-3.6-selenium-chrome
+# currently published as pivotaldata/pgadmin:base-python-selenium-chrome
 FROM selenium/node-chrome:latest
 
 USER root
@@ -11,12 +11,13 @@ RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key
  && sh -c 'echo "deb http://dl.yarnpkg.com/debian/ stable main" >> /etc/apt/sources.list.d/yarn.list' \
  && apt-get update
 
-# copy utility for pyperclip to work in the test
-RUN apt-get -y install xsel
+# copy utility for pyperclip to work in the test and all the system dependencies
+RUN apt-get -y install xsel build-essential libssl-dev libffi-dev python-dev python3-dev \
+                       libpq-dev python git bzip2 libreadline6 sqlite3 libsqlite3-dev
 
 # install node, yarn, postgres client library, python, pip and SQlite
 RUN wget -q -O - https://deb.nodesource.com/setup_8.x | bash - \
- && apt-get -y install nodejs yarn libpq-dev python python-dev git build-essential bzip2 libreadline6 sqlite3 libsqlite3-dev \
+ && apt-get -y install nodejs yarn \
  && wget https://bootstrap.pypa.io/get-pip.py \
  && python get-pip.py
 

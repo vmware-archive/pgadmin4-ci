@@ -22,33 +22,32 @@ RUN set -x \
 
 RUN wget -qO- https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
 
-RUN apt update
-RUN apt install -y software-properties-common python-software-properties less
-RUN add-apt-repository ppa:greenplum/db
-RUN apt update
-RUN apt install -y greenplum-db-oss
-RUN . /opt/gpdb/greenplum_path.sh
+RUN apt update \
+ && apt install -y software-properties-common python-software-properties less \
+ && add-apt-repository ppa:greenplum/db \
+ && apt update \
+ && apt install -y greenplum-db-oss \
+ && . /opt/gpdb/greenplum_path.sh
 
-RUN locale-gen en_US.utf8
-RUN mkdir /gpdata
-RUN mkdir /gpdata/gpdata1
-RUN mkdir /gpdata/gpdata2
-RUN mkdir /gpdata/gpmaster
-RUN . /opt/gpdb/greenplum_path.sh && cp $GPHOME/docs/cli_help/gpconfigs/gpinitsystem_singlenode /gpdata/
-RUN sed -i 's/gpdata1/gpdata\/gpdata1/g' /gpdata/gpinitsystem_singlenode
-RUN sed -i 's/gpdata2/gpdata\/gpdata2/g' /gpdata/gpinitsystem_singlenode
-RUN sed -i 's/gpmaster/gpdata\/gpmaster/g' /gpdata/gpinitsystem_singlenode
-RUN apt install -y ssh
-
-RUN useradd -md /home/gp/ gp
-RUN chown gp -R /gpdata
-RUN echo "source /opt/gpdb/greenplum_path.sh" > /home/gp/.bash_profile && chown gp:gp /home/gp/.bash_profile
-RUN su - gp bash -c 'mkdir /home/gp/.ssh'
+RUN locale-gen en_US.utf8 \
+ && mkdir /gpdata \
+ && mkdir /gpdata/gpdata1 \
+ && mkdir /gpdata/gpdata2 \
+ && mkdir /gpdata/gpmaster \
+ && . /opt/gpdb/greenplum_path.sh && cp $GPHOME/docs/cli_help/gpconfigs/gpinitsystem_singlenode /gpdata/ \
+ && sed -i 's/gpdata1/gpdata\/gpdata1/g' /gpdata/gpinitsystem_singlenode \
+ && sed -i 's/gpdata2/gpdata\/gpdata2/g' /gpdata/gpinitsystem_singlenode \
+ && sed -i 's/gpmaster/gpdata\/gpmaster/g' /gpdata/gpinitsystem_singlenode \
+ && apt install -y ssh \
+ && useradd -md /home/gp/ gp \
+ && chown gp -R /gpdata \
+ && echo "source /opt/gpdb/greenplum_path.sh" > /home/gp/.bash_profile && chown gp:gp /home/gp/.bash_profile \
+ && su - gp bash -c 'mkdir /home/gp/.ssh'
 
 ADD install_and_start_gpdb.sh /home/gp/install_and_start_gpdb.sh
-RUN chown gp:gp /home/gp/install_and_start_gpdb.sh
-RUN chmod a+x /home/gp/install_and_start_gpdb.sh
-RUN echo "gp ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
-RUN echo "root ALL=NOPASSWD: ALL" >> /etc/sudoers
+RUN chown gp:gp /home/gp/install_and_start_gpdb.sh \
+ && chmod a+x /home/gp/install_and_start_gpdb.sh \
+ && echo "gp ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers \
+ && echo "root ALL=NOPASSWD: ALL" >> /etc/sudoers
 
 CMD sudo su - gp bash -c /home/gp/install_and_start_gpdb.sh && tail -f /dev/null
