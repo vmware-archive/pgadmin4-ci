@@ -22,7 +22,7 @@ pushd pgadmin-repo > /dev/null
   code_quotes='```'
 
   cat > metadata.txt <<EOF
-*$(< $dir/patches/subject)*
+*$(< $dir/patches/from) - $(< $dir/patches/subject)*
 ${code_quotes}
 $(git diff ..$oldSHA --stat)
 ${code_quotes}
