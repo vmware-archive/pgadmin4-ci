@@ -23,6 +23,7 @@ pushd pgadmin-repo > /dev/null
 
   cat > metadata.txt <<EOF
 *$(< $dir/patches/from) - $(< $dir/patches/subject)*
+$(cut -c 1-150 < $dir/patches/body )...
 ${code_quotes}
 $(git diff ..$oldSHA --stat)
 ${code_quotes}
