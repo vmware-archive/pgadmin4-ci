@@ -9,7 +9,7 @@ pushd pgadmin-repo > /dev/null
 
   git \
     apply \
-    $dir/patches/attachments/*
+    ${dir}/patches/attachments/*
 
   git add -A
 
@@ -21,13 +21,15 @@ pushd pgadmin-repo > /dev/null
 
   code_quotes='```'
 
+  body=$(< ${dir}/patches/body)
+
   cat > metadata.txt <<EOF
-*$(< $dir/patches/from) - $(< $dir/patches/subject)*
-$(cut -c 1-150 < $dir/patches/body )...
+*$(< ${dir}/patches/from) - $(< ${dir}/patches/subject)*
+$(echo ${body} | cut -c 1-150 )...
 ${code_quotes}
-$(git diff ..$oldSHA --stat)
+$(git diff ..${oldSHA} --stat)
 ${code_quotes}
-$(cd $dir/patches/attachments && ls )
+$(cd ${dir}/patches/attachments && ls )
 EOF
 
   cat metadata.txt
