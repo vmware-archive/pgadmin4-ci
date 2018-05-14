@@ -3,7 +3,8 @@
 set -e
 
 title_link=$(cat build-metadata/build-url)
-text="*$(cat patches/subject)*\n$(cd patches/attachments && ls )"
+body=$(cat patches/body)
+text="*$(cat patches/from) - $(cat patches/subject)*\n$(echo ${body} | cut -c 1-150)...\n$(cd patches/attachments && ls )"
 payload=$(cat <<EOF
 {
 "channel": "#pgadmin4",
