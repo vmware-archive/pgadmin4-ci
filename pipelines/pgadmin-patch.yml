@@ -57,7 +57,7 @@ jobs:
       params:
         TITLE: "The following patch failed to apply"
         COLOR: "#D00000" #red
-        SLACK_URL: ((slack_url))
+        SLACK_URLS: ((slack_urls))
   - put: gcs-bucket
     params:
       file: artifacts/pgadmin-repo.tgz
@@ -79,7 +79,7 @@ jobs:
       params:
         TITLE: "Linter failed on the following patch"
         COLOR: "#D00000" #red
-        SLACK_URL: ((slack_url))
+        SLACK_URLS: ((slack_urls))
 
 - name: run-tests
   public: true
@@ -165,11 +165,11 @@ jobs:
     params:
       TITLE: "Tests succeeded on the following patch"
       COLOR: "#00D000" #green
-      SLACK_URL: ((slack_url))
+      SLACK_URLS: ((slack_urls))
   on_failure:
     task: alert-failure
     file: pgadmin-ci/tasks/alert-slack/task.yml
     params:
       TITLE: "Tests failed on the following patch"
       COLOR: "#D00000" #red
-      SLACK_URL: ((slack_url))
+      SLACK_URLS: ((slack_urls))

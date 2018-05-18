@@ -7,7 +7,6 @@ title_link=$(cat build-metadata/build-url)
 metadata=$(cat pgadmin-repo/metadata.txt | sed 's,",\\",g')
 payload=$(cat <<EOF
 {
-"channel": "#pgadmin4",
 "username": "patches-bot",
 "icon_emoji": ":robot_face:",
 "attachments": [
@@ -24,7 +23,9 @@ payload=$(cat <<EOF
 EOF
 )
 
-curl \
-  -X POST \
-  --data-urlencode "payload=$payload" \
-  $SLACK_URL
+for url in ${SLACK_URLS}; do
+    curl \
+      -X POST \
+      --data-urlencode "payload=${payload}" \
+      ${url}
+done

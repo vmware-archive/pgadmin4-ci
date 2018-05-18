@@ -7,7 +7,6 @@ body=$(cat patches/body)
 text="*$(cat patches/from) - $(cat patches/subject)*\n$(echo ${body} | cut -c 1-150)...\n$(cd patches/attachments && ls )"
 payload=$(cat <<EOF
 {
-"channel": "#pgadmin4",
 "username": "patches-bot",
 "icon_emoji": ":robot_face:",
 "attachments": [
@@ -24,7 +23,9 @@ payload=$(cat <<EOF
 EOF
 )
 
-curl \
-  -X POST \
-  --data-urlencode "payload=$payload" \
-  $SLACK_URL
+for url in ${SLACK_URLS}; do
+    curl \
+      -X POST \
+      --data-urlencode "payload=${payload}" \
+      ${url}
+done
