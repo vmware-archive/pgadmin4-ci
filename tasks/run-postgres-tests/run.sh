@@ -8,6 +8,7 @@ tar -xf pgadmin-repo-tarball/*.tgz
 
 chown -R postgres:postgres /var/lib/postgresql/data
 /opt/bin/postgres_start.sh
+trap /opt/bin/postgres_stop.sh exit
 
 # Pass in the config file
 cp pgadmin-ci/config_local.py $PIVOTAL_SOURCE/web/config_local.py
@@ -37,17 +38,13 @@ pyenv activate $PYENV_ENV
 pip install -r $PIVOTAL_SOURCE/requirements.txt
 pip install -r $PIVOTAL_SOURCE/web/regression/requirements.txt
 
-pushd $PIVOTAL_SOURCE/web
+cd $PIVOTAL_SOURCE/web
 yarn install --no-progress
-popd
 
-function runTests {
-    set +e
-    python $PIVOTAL_SOURCE/web/regression/runtests.py
-    status=$?
-    /opt/bin/postgres_stop.sh
-    set -e
-    return $status
-}
+PYTHONPATH=$PIVOTAL_SOURCE/web
 
-runTests
+if [[ -n $(which pytest) ]]; then
+  pytest -q pgadmin
+else
+  python regression/runtests.py
+fi
