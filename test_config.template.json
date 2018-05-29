@@ -21,22 +21,17 @@
       "maintenance_db": "postgres",
       "sslmode": "prefer",
       "tablespace_path": "",
-      "enabled": true
+      "enabled": true,
+      "DEFAULT_BINARY_PATHS": {
+        "pg": "/usr/lib/postgresql/{{db_version}}/bin",
+        "ppas": "",
+        "gpdb": "/opt/gpdb/bin"
+      }
     }
   ],
   "server_update_data": [
     {
       "comment": "This is test update comment"
     }
-  ],
-  "default_binary_paths": {
-    "pg": "/usr/lib/postgresql/{{db_version}}/bin",
-    "ppas": "",
-    "gpdb": "/opt/gpdb/bin"
-  },
-  "DEFAULT_BINARY_PATHS": {
-    "pg": "/usr/lib/postgresql/{{db_version}}/bin",
-    "ppas": "",
-    "gpdb": "/opt/gpdb/bin"
-  }
+  ]
 }
