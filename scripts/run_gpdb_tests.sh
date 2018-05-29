@@ -10,10 +10,14 @@ GPDB_PORT=$5
 
 # Pass in the config file
 cp pipeline-ci/config_local.py $PIVOTAL_SOURCE/web/config_local.py
-sed -e "s/{{greenplum_db_host}}/$GPDB_HOST/" \
-    -e "s/{{greenplum_db_username}}/$GPDB_USERNAME/" \
-    -e "s/{{greenplum_db_password}}/$GPDB_PASSWORD/" \
-    -e "s/{{greenplum_db_port}}/$GPDB_PORT/" pipeline-ci/test_config.greenplum.json \
+sed -e "s/{{db_name}}/GreenPlum5/" \
+    -e "s/{{db_comment}}/Greenplum Pivotal Server/" \
+    -e "s/{{db_host}}/$GPDB_HOST/" \
+    -e "s/{{db_username}}/$GPDB_USERNAME/" \
+    -e "s/{{db_password}}/$GPDB_PASSWORD/" \
+    -e "s/{{db_port}}/$GPDB_PORT/" \
+    -e "s/{{db_version}}/0/" \
+    pgadmin-ci/test_config.template.json \
   > $PIVOTAL_SOURCE/web/regression/test_config.json
 
 # Replace the first line of the file with the missing import

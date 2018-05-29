@@ -11,7 +11,15 @@ trap /opt/bin/postgres_stop.sh exit
 
 # Pass in the config file
 cp pipeline-ci/config_local.py $PIVOTAL_SOURCE/web/config_local.py
-cp pipeline-ci/test_config.json $PIVOTAL_SOURCE/web/regression/test_config.json
+sed -e "s/{{db_name}}/PostgreSQL/" \
+    -e "s/{{db_comment}}/Concourse default postgres/" \
+    -e "s/{{db_host}}/localhost/" \
+    -e "s/{{db_username}}/postgres/" \
+    -e "s/{{db_password}}//" \
+    -e "s/{{db_port}}/5432/" \
+    -e "s/{{db_version}}/$PG_MAJOR/" \
+    pgadmin-ci/test_config.template.json \
+  > $PIVOTAL_SOURCE/web/regression/test_config.json
 
 # Replace the first line of the file with the missing import
 sed -i '/__future__/a from selenium.webdriver.common.desired_capabilities import DesiredCapabilities' $PIVOTAL_SOURCE/web/regression/runtests.py
