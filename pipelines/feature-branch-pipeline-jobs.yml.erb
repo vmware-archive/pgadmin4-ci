@@ -20,7 +20,7 @@
       passed: [<%= source_name + render_branch_name %>-branch]
     - get: <%= source_name + render_branch_name %>
       trigger: true
-    - get: pipeline-ci
+    - get: pgadmin-ci
       trigger: true
   - task: karma-tests
     config:
@@ -30,9 +30,9 @@
         source: {repository: pivotaldata/pgadmin, tag: 'karma-tests'}
       inputs:
         - name: <%= source_name + render_branch_name %>
-        - name: pipeline-ci
+        - name: pgadmin-ci
       run:
-        path: pipeline-ci/scripts/run_karma.sh
+        path: pgadmin-ci/scripts/run_karma.sh
         args: ["<%= source_name + render_branch_name %>"]
 
 - name: <%= source_name + render_branch_name %>-python-linter
@@ -43,7 +43,7 @@
       passed: [<%= source_name + render_branch_name %>-branch]
     - get: <%= source_name + render_branch_name %>
       trigger: true
-    - get: pipeline-ci
+    - get: pgadmin-ci
       trigger: true
   - task: linter
     config:
@@ -53,9 +53,9 @@
         source: {repository: pivotaldata/pgadmin, tag: 'postgres-9.2'}
       inputs:
         - name: <%= source_name + render_branch_name %>
-        - name: pipeline-ci
+        - name: pgadmin-ci
       run:
-        path: pipeline-ci/scripts/python_lint.sh
+        path: pgadmin-ci/scripts/python_lint.sh
         args: ["<%= source_name + render_branch_name %>"]
 
 
@@ -66,7 +66,7 @@
     - get: <%= source_name + render_branch_name %>
       trigger: true
       passed: [<%= source_name + render_branch_name %>-javascript-tests]
-    - get: pipeline-ci
+    - get: pgadmin-ci
       trigger: true
       passed: [<%= source_name + render_branch_name %>-javascript-tests]
   - task: python-tests-on-9.2
@@ -78,9 +78,9 @@
         source: {repository: pivotaldata/pgadmin, tag: 'postgres-9.2'}
       inputs:
         - name: <%= source_name + render_branch_name %>
-        - name: pipeline-ci
+        - name: pgadmin-ci
       run:
-        path: pipeline-ci/scripts/run_python_tests.sh
+        path: pgadmin-ci/scripts/run_python_tests.sh
         args:
             - "<%= source_name + render_branch_name %>"
             - "<%= pyenv_version %>"
@@ -92,7 +92,7 @@
     - get: <%= source_name + render_branch_name %>
       trigger: true
       passed: [<%= source_name + render_branch_name %>-javascript-tests]
-    - get: pipeline-ci
+    - get: pgadmin-ci
       trigger: true
       passed: [<%= source_name + render_branch_name %>-javascript-tests]
   - task: python-tests-on-9.6
@@ -104,9 +104,9 @@
         source: {repository: pivotaldata/pgadmin, tag: 'postgres-9.6'}
       inputs:
         - name: <%= source_name + render_branch_name %>
-        - name: pipeline-ci
+        - name: pgadmin-ci
       run:
-        path: pipeline-ci/scripts/run_python_tests.sh
+        path: pgadmin-ci/scripts/run_python_tests.sh
         args:
             - "<%= source_name + render_branch_name %>"
             - "<%= pyenv_version %>"
@@ -118,7 +118,7 @@
     - get: <%= source_name + render_branch_name %>
       trigger: true
       passed: [<%= source_name + render_branch_name %>-javascript-tests]
-    - get: pipeline-ci
+    - get: pgadmin-ci
       trigger: true
       passed: [<%= source_name + render_branch_name %>-javascript-tests]
   - task: python-tests-on-10
@@ -130,9 +130,9 @@
         source: {repository: pivotaldata/pgadmin, tag: 'postgres-10'}
       inputs:
         - name: <%= source_name + render_branch_name %>
-        - name: pipeline-ci
+        - name: pgadmin-ci
       run:
-        path: pipeline-ci/scripts/run_python_tests.sh
+        path: pgadmin-ci/scripts/run_python_tests.sh
         args:
             - "<%= source_name + render_branch_name %>"
             - "<%= pyenv_version %>"
@@ -144,7 +144,7 @@
     - get: <%= source_name + render_branch_name %>
       trigger: true
       passed: [<%= source_name + render_branch_name %>-javascript-tests]
-    - get: pipeline-ci
+    - get: pgadmin-ci
       trigger: true
       passed: [<%= source_name + render_branch_name %>-javascript-tests]
   - task: python-tests-on-gpdb5
@@ -155,9 +155,9 @@
         source: {repository: pivotaldata/pgadmin, tag: 'gpdb-5'}
       inputs:
         - name: <%= source_name + render_branch_name %>
-        - name: pipeline-ci
+        - name: pgadmin-ci
       run:
-        path: pipeline-ci/scripts/run_gpdb_tests.sh
+        path: pgadmin-ci/scripts/run_gpdb_tests.sh
         args:
          - "<%= source_name + render_branch_name %>"
          - GPDB_HOST
@@ -173,7 +173,7 @@
     - get: <%= source_name + render_branch_name %>
       trigger: true
       passed: [<%= source_name + render_branch_name %>-python-tests-on-<%=pyenv_version%>-on-greenplum-5, <%= source_name + render_branch_name %>-python-tests-on-<%=pyenv_version%>-on-postgres-10,<%= source_name + render_branch_name %>-python-tests-on-<%=pyenv_version%>-on-postgres-9.6, <%= source_name + render_branch_name %>-python-tests-on-<%=pyenv_version%>-on-postgres-9.2]
-    - get: pipeline-ci
+    - get: pgadmin-ci
       trigger: true
       passed: [<%= source_name + render_branch_name %>-python-tests-on-<%=pyenv_version%>-on-greenplum-5, <%= source_name + render_branch_name %>-python-tests-on-<%=pyenv_version%>-on-postgres-10,<%= source_name + render_branch_name %>-python-tests-on-<%=pyenv_version%>-on-postgres-9.6, <%= source_name + render_branch_name %>-python-tests-on-<%=pyenv_version%>-on-postgres-9.2]
   - task: push-to-cf
@@ -184,11 +184,11 @@
         source: {repository: pivotaldata/pgadmin, tag: 'karma-tests'}
       inputs:
         - name: <%= source_name + render_branch_name %>
-        - name: pipeline-ci
+        - name: pgadmin-ci
       outputs:
         - name: cf-directory
       run:
-        path: pipeline-ci/scripts/prepare_to_push_to_cf.sh
+        path: pgadmin-ci/scripts/prepare_to_push_to_cf.sh
         args:
          - "<%= source_name + render_branch_name %>"
   - put: resource-deploy-web-app

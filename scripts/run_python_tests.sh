@@ -10,7 +10,7 @@ chown -R postgres:postgres /var/lib/postgresql/data
 trap /opt/bin/postgres_stop.sh exit
 
 # Pass in the config file
-cp pipeline-ci/config_local.py $PIVOTAL_SOURCE/web/config_local.py
+cp pgadmin-ci/config_local.py $PIVOTAL_SOURCE/web/config_local.py
 sed -e "s/{{db_name}}/PostgreSQL/" \
     -e "s/{{db_comment}}/Concourse default postgres/" \
     -e "s/{{db_host}}/localhost/" \

@@ -4,11 +4,11 @@ set -e
 PIVOTAL_SOURCE=$1
 
 # Copy files needed for pcf to run pgAdmin4
-cp pipeline-ci/config_local_cf.py $PIVOTAL_SOURCE/web/config_local.py
-cp pipeline-ci/.cfignore $PIVOTAL_SOURCE/web/
+cp pgadmin-ci/config_local_cf.py $PIVOTAL_SOURCE/web/config_local.py
+cp pgadmin-ci/.cfignore $PIVOTAL_SOURCE/web/
 cp $PIVOTAL_SOURCE/requirements.txt $PIVOTAL_SOURCE/web/
 mkdir $PIVOTAL_SOURCE/web/.pgadmin
-cp pipeline-ci/database/pgadmin4-desktop.db $PIVOTAL_SOURCE/web/.pgadmin/
+cp pgadmin-ci/database/pgadmin4-desktop.db $PIVOTAL_SOURCE/web/.pgadmin/
 
 
 
@@ -27,6 +27,6 @@ if [ $error == true ] ; then
 fi
 
 cp -rf $PIVOTAL_SOURCE/web cf-directory
-cp pipeline-ci/manifest.yml cf-directory
+cp pgadmin-ci/manifest.yml cf-directory
 
 exit 0

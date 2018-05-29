@@ -9,7 +9,7 @@ GPDB_PASSWORD=$4
 GPDB_PORT=$5
 
 # Pass in the config file
-cp pipeline-ci/config_local.py $PIVOTAL_SOURCE/web/config_local.py
+cp pgadmin-ci/config_local.py $PIVOTAL_SOURCE/web/config_local.py
 sed -e "s/{{db_name}}/GreenPlum5/" \
     -e "s/{{db_comment}}/Greenplum Pivotal Server/" \
     -e "s/{{db_host}}/$GPDB_HOST/" \
