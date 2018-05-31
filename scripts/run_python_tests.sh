@@ -39,7 +39,7 @@ pip install -r $PIVOTAL_SOURCE/web/regression/requirements.txt
 cd $PIVOTAL_SOURCE/web
 yarn install --no-progress
 
-export PYTHONPATH=$PIVOTAL_SOURCE/web
+export PYTHONPATH=`pwd`
 
 if [[ -n $(which pytest) ]]; then
   pytest -q pgadmin
