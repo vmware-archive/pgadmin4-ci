@@ -22,7 +22,7 @@
       "sslmode": "prefer",
       "tablespace_path": "",
       "enabled": true,
-      "DEFAULT_BINARY_PATHS": {
+      "default_binary_paths": {
         "pg": "/usr/lib/postgresql/{{db_version}}/bin",
         "ppas": "",
         "gpdb": "/opt/gpdb/bin"
