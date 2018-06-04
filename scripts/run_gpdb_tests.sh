@@ -43,7 +43,7 @@ yarn install --no-progress
 export PYTHONPATH=`pwd`
 
 if [[ -n $(which pytest) ]]; then
-  pytest -q pgadmin
+  pytest -q pgadmin regression/feature_tests
 else
   python regression/runtests.py
 fi
